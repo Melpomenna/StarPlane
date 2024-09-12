@@ -1,6 +1,7 @@
 #pragma once
 
 #define ENABLE_MUSIC 0
+#define ENABLE_ICON 1
 
 #ifndef APP_FULL_SIZE
 #if defined(_WIN32)

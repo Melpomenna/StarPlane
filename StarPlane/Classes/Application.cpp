@@ -1,6 +1,8 @@
 #include "Application.h"
 
 #include <GUI/Render.h>
+#include <Utils/Timer.h>
+#include <Utils/Cache.h>
 
 namespace Game
 {
@@ -13,6 +15,7 @@ namespace Game
     void Application::Init() noexcept
     {
         render_ = std::make_unique<GUI::Render>(width_, height_, title_);
+        timer_ = std::make_shared<Timer>();
     }
 
     int Application::Run() noexcept
@@ -20,15 +23,18 @@ namespace Game
         int statusCode{};
         try
         {
+            double dt = 1E-6;
             while (render_->IsRunning())
             {
+                timer_->Mark();
                 render_->Draw();
+                dt = timer_->Peek();
             }
             if (render_->HasException())
             {
                 render_->Terminate();
             }
-			
+
         }
         catch (...)
         {
@@ -45,7 +51,7 @@ namespace Game
 
     void Application::Destroy() noexcept
     {
-
+        Cache::Release();
     }
 
 

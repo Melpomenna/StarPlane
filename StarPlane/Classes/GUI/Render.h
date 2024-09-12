@@ -2,13 +2,19 @@
 
 #include <exception>
 
+#define GLFW_DLL
 #include <GLFW/glfw3.h>
+
+#include <Utils/Optional.h>
+#include <vector>
 
 namespace Game
 {
 
     namespace GUI
     {
+
+        class Node;
 
         class Render final
         {
@@ -25,16 +31,22 @@ namespace Game
             bool HasException() const noexcept;
             void Terminate();
 
+            void AddNode(Node*);
+
         private:
             void Init() noexcept;
             void Destroy() noexcept;
 
-			void SetIcon() const noexcept;
+            void SetIcon() const noexcept;
+            static void ClearErrors() noexcept;
+            void PullError() noexcept;
+
         private:
             const unsigned width_, height_;
             const char *title_;
             GLFWwindow *window_;
-            std::exception_ptr *exception_;
+            Optional<std::exception_ptr> exception_;
+            std::vector<Node *> nodes_;
         };
     } // namespace GUI
 
