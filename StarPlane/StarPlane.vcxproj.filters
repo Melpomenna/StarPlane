@@ -13,91 +13,145 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\GUI">
+      <UniqueIdentifier>{ece2f8a5-e8e4-4577-ab33-85b2266ff246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Buffers">
+      <UniqueIdentifier>{e05958c8-45de-48e5-ba72-9f3334bc1366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Shaders">
+      <UniqueIdentifier>{c43d77df-3ef4-490d-875d-087e6d3d9632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Utils">
+      <UniqueIdentifier>{337ab130-7884-422b-942a-7f0bcf116084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Application">
+      <UniqueIdentifier>{3a581d3a-9834-476d-8cac-b6087d7229c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Utils">
+      <UniqueIdentifier>{747151ad-7392-4fb6-87de-ac02d88acf9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Core">
+      <UniqueIdentifier>{e0391188-84ea-4a83-a594-b14570204ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Nodes">
+      <UniqueIdentifier>{75057f24-9be6-4c8e-9883-ab891fd41315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI">
+      <UniqueIdentifier>{9e8adb43-7007-4101-9c0b-b682713eb636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Application">
+      <UniqueIdentifier>{76012f1b-1e04-4407-94c8-718a9ded157a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Utils">
+      <UniqueIdentifier>{db708fa4-726b-4ed8-8fee-7e186d7d840c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Utils">
+      <UniqueIdentifier>{6964db36-38a7-4b33-86d1-78ed4aa1db18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Buffers">
+      <UniqueIdentifier>{7e8af302-b458-41db-9a44-e5d224b61612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Shaders">
+      <UniqueIdentifier>{19cbc80b-3314-4230-a808-eb045c1c7388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Render">
+      <UniqueIdentifier>{9d232ff1-b0a7-413b-8d75-76c04e2610fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Nodes">
+      <UniqueIdentifier>{405e831b-d7c8-4c75-b6f4-5210606d9394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Resources">
+      <UniqueIdentifier>{a686ec7b-7f02-4bfb-ab81-d7247bb540cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{a97b0202-b72c-4631-af6e-3bd3d3565d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{2a2af4b7-03db-41a6-ac0f-4d9b199aecb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\Lib">
+      <UniqueIdentifier>{416f4351-d210-4593-b19f-ddb8069a4623}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Application.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GUI\Render.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GUI\Node.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Utils\Timer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GUI\Shader.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GUI\ShaderProgram.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
+      <Filter>Исходные файлы\GUI\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GUI\Buffers\VertexBuffer.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\GUI\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Classes\GUI\Shader.cpp">
+      <Filter>Исходные файлы\GUI\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\ShaderProgram.cpp">
+      <Filter>Исходные файлы\GUI\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GUI\Support.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\GUI\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Application.cpp">
+      <Filter>Исходные файлы\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы\Application</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Utils\Cache.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Utils\Timer.cpp">
+      <Filter>Исходные файлы\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Render.cpp">
+      <Filter>Исходные файлы\GUI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Node.cpp">
+      <Filter>Исходные файлы\GUI\Nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Application.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Render.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Utils\Config.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Utils\Optional.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Node.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Utils\Timer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Shader.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\ShaderProgram.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Color.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Buffer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\GUI\Support.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Application</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Utils\Cache.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Utils</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\Lib\x64\glfw3.dll" />
+    <ClInclude Include="Classes\Utils\Config.h">
+      <Filter>Файлы заголовков\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Utils\Timer.h">
+      <Filter>Файлы заголовков\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Support.h">
+      <Filter>Файлы заголовков\GUI\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Buffer.h">
+      <Filter>Файлы заголовков\GUI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h">
+      <Filter>Файлы заголовков\GUI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Utils\Optional.h">
+      <Filter>Файлы заголовков\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h">
+      <Filter>Файлы заголовков\GUI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Shader.h">
+      <Filter>Файлы заголовков\GUI\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\ShaderProgram.h">
+      <Filter>Файлы заголовков\GUI\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Render.h">
+      <Filter>Файлы заголовков\GUI\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Node.h">
+      <Filter>Файлы заголовков\GUI\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc">
@@ -108,5 +162,53 @@
     <Image Include="Resources\APP_ICON.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\BasicVertex.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BasicFrag.frag">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\Lib\x64\gl3w.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glad.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glbinding.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glbinding-aux.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glew32.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glfw3dll.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\glm.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\GlU32.Lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+    <Library Include="ThirdParty\Lib\x64\OpenGL32.Lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32.dll">
+      <Filter>ThirdParty\Lib</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32d.dll">
+      <Filter>ThirdParty\Lib</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glfw3.dll">
+      <Filter>ThirdParty\Lib</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

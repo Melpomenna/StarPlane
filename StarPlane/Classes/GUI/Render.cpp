@@ -1,21 +1,14 @@
-#if defined(_WIN32)
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#endif
-
-#if !defined(NDEBUG) && !defined(_WIN32)
-#include <iostream>
-#endif
+#include <Utils/Config.h>
 
 #include "Render.h"
 
 #include <cassert>
-#include <GL/gl.h>
 #include <stdexcept>
 #include <unordered_map>
 
 #include <resource.h>
 
+#define USING_WINAPI
 #include <Utils/Config.h>
 
 #include <GUI/Node.h>
@@ -32,7 +25,7 @@ namespace Game
 
         void Render::Init() noexcept
         {
-            if (glfwInit() != GLFW_TRUE)
+            if (!glfwInit())
             {
                 std::runtime_error error{"Cannot init glfw"};
                 exception_ = std::make_exception_ptr(error);
@@ -41,10 +34,10 @@ namespace Game
 
 
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-            window_ = glfwCreateWindow(width_, height_, title_, nullptr, nullptr);
+            window_ = glfwCreateWindow(static_cast<int>(width_), static_cast<int>(height_), title_, nullptr, nullptr);
 
             if (window_ == nullptr)
             {
@@ -55,9 +48,34 @@ namespace Game
 
             glfwMakeContextCurrent(window_);
 
+            const GLenum errorCode = glewInit();
+            if (errorCode != GLEW_OK)
+            {
+                (void)errorCode;
+                std::runtime_error error{"Cannot init glew"};
+                exception_ = std::make_exception_ptr(error);
+                return;
+            }
+
+            LoadMatrixProjection();
+
             glfwSetWindowTitle(window_, title_);
+
+
             SetIcon();
         }
+
+        void Render::LoadMatrixProjection() const noexcept
+        {
+            glViewport(0, 0, static_cast<int>(width_), static_cast<int>(height_));
+
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+
+            glOrtho(-static_cast<double>(width_), width_, -static_cast<double>(height_), height_, -1, 1);
+
+        }
+
 
         void Render::SetIcon() const noexcept
         {
@@ -83,11 +101,11 @@ namespace Game
             assert(hIcon != nullptr);
             if (hIcon)
             {
-                SendMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_BIG, (LPARAM)hIcon);
             }
             if (hIcon)
             {
-                SendMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
             }
 #endif
         }
@@ -96,14 +114,15 @@ namespace Game
         void Render::Draw()
         {
             ClearErrors();
-            glClearColor(0, 0, 0, 1);
+
+            glClear(GL_COLOR_BUFFER_BIT);
 
             for (size_t i = 0; i < nodes_.size(); ++i)
             {
                 auto node = nodes_[i];
                 node->Bind();
 
-                glDrawElements(node->RenderMode(), node->IndexCount(), node->ElementType(), nullptr);
+                glDrawElements(node->RenderMode(), node->IndexCount(), node->IndexElementType(), nullptr);
             }
 
             glfwSwapBuffers(window_);
@@ -116,7 +135,7 @@ namespace Game
         {
             while (glGetError() != GL_NO_ERROR)
             {
-                ;
+
             }
         }
 
@@ -196,6 +215,10 @@ namespace Game
             if (!window_)
             {
                 return;
+            }
+            for (auto node : nodes_)
+            {
+                ::delete node;
             }
             glfwDestroyWindow(window_);
             window_ = nullptr;

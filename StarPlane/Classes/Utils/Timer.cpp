@@ -23,7 +23,9 @@ namespace Game
         Timer &Timer::operator=(const Timer &other) noexcept
         {
             if (this == &other)
+            {
                 return *this;
+            }
 
             last_.store(other.last_.load());
 
@@ -39,7 +41,9 @@ namespace Game
         Timer &Timer::operator=(Timer &&other) noexcept
         {
             if (this == &other)
+            {
                 return *this;
+            }
 
             last_.store(other.last_.load());
             other.last_.store(TimeType::now());

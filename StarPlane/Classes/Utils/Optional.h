@@ -36,7 +36,9 @@ namespace Game
             bool operator==(ValueType other) const noexcept
             {
                 if (!hasValue_)
+                {
                     return false;
+                }
                 return value_ == other;
             }
 

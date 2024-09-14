@@ -1,3 +1,5 @@
+#include <Utils/Config.h>
+
 #include "Node.h"
 
 
@@ -6,23 +8,33 @@
 #include <GUI/Buffers/VertexBuffer.h>
 #include <GUI/Buffers/IndexBuffer.h>
 
+#include <glm/gtc/type_ptr.inl>
+
+#include <immintrin.h>
+#include <string>
+
+
 namespace Game
 {
     namespace GUI
     {
 
-        Node::Node(const char *vertexShader, const char *fragmentShader)
+        Node::Node(const char *vertexShader, const char *fragmentShader, unsigned renderType)
         {
             program_ = std::make_shared<ShaderProgram>(vertexShader, fragmentShader);
             vertexBuffer_ = std::make_shared<VertexBuffer>();
             indexBuffer_ = std::make_shared<IndexBuffer>();
+            colorBuffer_ = std::make_shared<VertexBuffer>(4, renderType, 1);
+            vertexBuffer_->ChangeRenderType(renderType);
+            indexBuffer_->ChangeRenderType(renderType);
         }
 
         void Node::Bind() noexcept
         {
-            program_->Bind();
             vertexBuffer_->Bind();
+            colorBuffer_->Bind();
             indexBuffer_->Bind();
+            program_->Bind();
         }
 
         unsigned Node::ElementType() const noexcept
@@ -36,30 +48,116 @@ namespace Game
             return indexBuffer_->Size();
         }
 
+        unsigned Node::IndexElementType() const noexcept
+        {
+            return indexBuffer_->Type();
+        }
+
+        int Node::VertexCount() const noexcept
+        {
+            return vertexBuffer_->Size();
+        }
+
+
         unsigned Node::RenderMode() const noexcept
         {
             return GL_TRIANGLES;
         }
 
-        void Node::SetColor(float r, float g, float b, float a) noexcept
+        void Node::FillColor(float r, float g, float b, float a) noexcept
         {
-            if (color_.uniformColorLocation == -1)
+            auto data = colorBuffer_->CastToArray<double>();
+            if (!data)
             {
-                const int location = glGetUniformLocation(program_->Id(), "u_color");
-                color_.uniformColorLocation = location;
+                colorBuffer_->CreateBuffer(static_cast<size_t>(vertexBuffer_->Size()) * 2);
+                data = colorBuffer_->CastToArray<double>();
             }
+            const auto size = colorBuffer_->Size();
+            double color[] = {
+                r, g, b, a
+            };
 
-            if (color_.uniformColorLocation == -1)
+            __m256d i_color = _mm256_load_pd(color);
+            for (int i = 0; i + 4 <= size; i += 4)
             {
-                return;
+                __m256d selfColor = _mm256_load_pd(data + i);
+                selfColor = _mm256_xor_pd(selfColor, selfColor);
+                __m256d result = _mm256_add_pd(selfColor, i_color);
+                _mm256_store_pd(data + i, result);
+#if defined(ENABLE_LOG)
+                auto r = "\nr:" + std::to_string(data[i]) + " ,g:";
+                auto g = std::to_string(data[i + 1]) + " ,b:";
+                auto b = std::to_string(data[i + 2]) + " ,a:";
+                auto a = std::to_string(data[i + 3]) + "\n";
+                auto outStr = r + g + b + a;
+                APP_LOG(outStr.c_str());
+#endif
             }
-            color_.c_ = {r, g, b, a};
-            glUniform4d(color_.uniformColorLocation, r, g, b, a);
         }
+
+        void Node::SetColorFor(const void *color)
+        {
+            if (!colorBuffer_->AsArray())
+            {
+                colorBuffer_->CreateBuffer(static_cast<size_t>(vertexBuffer_->Size()) * 2);
+            }
+            colorBuffer_->MoveBuffer(color, colorBuffer_->Size());
+        }
+
 
         void Node::Update(double dt)
         {
             (void)dt;
+        }
+
+        void Node::Move(double x, double y) noexcept
+        {
+            VertexBuffer::DataType *vertex = vertexBuffer_->CastToArray<double>();
+            const auto size = vertexBuffer_->Size();
+
+            for (auto i = 0; i + 2 < size; i += 2)
+            {
+                vertex[i] += x;
+                vertex[i + 1] += y;
+            }
+        }
+
+        void Node::StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize)
+        {
+            vertexBuffer_->MoveBuffer(vertex, vSize);
+            indexBuffer_->MoveBuffer(indexBuffer, iSize);
+        }
+
+        void Node::SetModel(glm::mat4x4 &model) noexcept
+        {
+            if (model_.uniformMatrixLocation == -1)
+            {
+                model_.uniformMatrixLocation = glGetUniformLocation(program_->Id(), "u_model");
+            }
+
+            if (model_.uniformMatrixLocation == -1)
+            {
+                return;
+            }
+
+            model_.mat_ = model;
+            glUniformMatrix4fv(model_.uniformMatrixLocation, 1, GL_FALSE, glm::value_ptr(model_.mat_));
+        }
+
+        void Node::SetProjection(glm::mat4x4 &projection) noexcept
+        {
+            if (projection_.uniformMatrixLocation == -1)
+            {
+                projection_.uniformMatrixLocation = glGetUniformLocation(program_->Id(), "u_projection");
+            }
+
+            if (projection_.uniformMatrixLocation == -1)
+            {
+                return;
+            }
+
+            projection_.mat_ = projection;
+            glUniformMatrix4fv(projection_.uniformMatrixLocation, 1, GL_FALSE, glm::value_ptr(projection_.mat_));
         }
 
 

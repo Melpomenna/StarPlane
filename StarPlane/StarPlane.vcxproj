@@ -124,9 +124,10 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);</AdditionalDependencies>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\x64$(SolutionDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +164,6 @@
     <ClInclude Include="Classes\GUI\Buffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h" />
-    <ClInclude Include="Classes\GUI\Color.h" />
     <ClInclude Include="Classes\GUI\Node.h" />
     <ClInclude Include="Classes\GUI\Render.h" />
     <ClInclude Include="Classes\GUI\Shader.h" />
@@ -176,13 +176,34 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\Lib\x64\glfw3.dll" />
+    <None Include="Shaders\BasicFrag.frag" />
+    <None Include="Shaders\BasicVertex.vert" />
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32d.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\glfw3.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\APP_ICON.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\Lib\x64\gl3w.lib" />
+    <Library Include="ThirdParty\Lib\x64\glad.lib" />
+    <Library Include="ThirdParty\Lib\x64\glbinding-aux.lib" />
+    <Library Include="ThirdParty\Lib\x64\glbinding.lib" />
+    <Library Include="ThirdParty\Lib\x64\glew32.lib" />
+    <Library Include="ThirdParty\Lib\x64\glfw3dll.lib" />
+    <Library Include="ThirdParty\Lib\x64\glm.lib" />
+    <Library Include="ThirdParty\Lib\x64\GlU32.Lib" />
+    <Library Include="ThirdParty\Lib\x64\OpenGL32.Lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

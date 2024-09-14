@@ -51,11 +51,15 @@ namespace Game
 
             glDeleteShader(id_);
             id_ = -1;
-            delete[] error_;
         }
 
         void Shader::Init(const char *src) noexcept
         {
+            if (!src)
+            {
+                return;
+            }
+
             id_ = glCreateShader(GetTypeAsGLType());
             glShaderSource(id_, 1, &src, nullptr);
             glCompileShader(id_);
@@ -67,19 +71,19 @@ namespace Game
             {
                 int length{};
                 glGetShaderiv(id_, GL_INFO_LOG_LENGTH, &length);
-                id_ = -1;
 
 #if defined(_malloca)
                 char *str = static_cast<char *>(_malloca(length));
 #else
-                char *str = new char[length];
+                char *str = ::new char[length];
 #endif
-                glGetShaderInfoLog(id_, length, &length, str);
                 if (!str)
                 {
+                    id_ = -1;
                     return;
                 }
-                error_ = new char[length];
+                glGetShaderInfoLog(id_, length, &length, str);
+                error_ = new char[length]();
                 memcpy(error_, str, length);
 #if defined(_malloca)
                 _freea(str);

@@ -12,7 +12,7 @@ namespace Game
         class ShaderProgram
         {
         public:
-            ShaderProgram() = default;
+            ShaderProgram();
             explicit ShaderProgram(const char *vertexShader, const char *fragmentShader);
             virtual ~ShaderProgram();
 

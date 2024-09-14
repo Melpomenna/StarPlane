@@ -1,9 +1,6 @@
-﻿#if defined(_WIN32)
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#endif
-
+﻿#define ENABLE_LOG
 #include <Utils/Config.h>
+
 #include <Application.h>
 
 #if defined(_WIN32)

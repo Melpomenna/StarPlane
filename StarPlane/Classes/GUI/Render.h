@@ -2,6 +2,7 @@
 
 #include <exception>
 
+#include <GL/glew.h>
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
@@ -31,7 +32,7 @@ namespace Game
             bool HasException() const noexcept;
             void Terminate();
 
-            void AddNode(Node*);
+            void AddNode(Node *);
 
         private:
             void Init() noexcept;
@@ -40,6 +41,7 @@ namespace Game
             void SetIcon() const noexcept;
             static void ClearErrors() noexcept;
             void PullError() noexcept;
+            void LoadMatrixProjection() const noexcept;
 
         private:
             const unsigned width_, height_;

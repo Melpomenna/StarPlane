@@ -1,7 +1,6 @@
 #pragma once
 
 #include <unordered_map>
-#include <memory>
 #include <utility>
 
 namespace Game
@@ -14,21 +13,21 @@ namespace Game
         {
         public:
             using ByteType = char;
-            using KeyType = const ByteType *;
-            using DataType = const ByteType *;
+            using KeyType = ByteType *;
+            using DataType = ByteType *;
             using DataSizeType = std::pair<DataType, size_t>;
             using ValueType = std::pair<size_t, DataSizeType>;
 
             ~Cache();
             static Cache *ResolveCache() noexcept;
-            DataSizeType Contains(KeyType, size_t size) const noexcept;
-            DataSizeType Contains(KeyType) const noexcept;
-            void Push(KeyType, DataType, size_t keySize, size_t dataSize) noexcept;
+            DataSizeType Contains(const ByteType *, size_t size) const noexcept;
+            DataSizeType Contains(const ByteType *) const noexcept;
+            void Push(const ByteType *, const ByteType *, size_t keySize, size_t dataSize) noexcept;
 
-			static void Release();
+            static void Release();
 
         private:
-            Cache() = default;
+            Cache();
             std::unordered_map<KeyType, ValueType> data_;
         };
 

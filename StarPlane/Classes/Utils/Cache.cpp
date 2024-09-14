@@ -11,7 +11,12 @@ namespace Game
             Cache *cache = nullptr;
         }
 
-        Cache::DataSizeType Cache::Contains(KeyType key, size_t size) const noexcept
+        Cache::Cache() :
+            data_()
+        {
+        }
+
+        Cache::DataSizeType Cache::Contains(const ByteType *key, size_t size) const noexcept
         {
             for (const auto &data : data_)
             {
@@ -23,7 +28,7 @@ namespace Game
             return {nullptr, 0};
         }
 
-        Cache::DataSizeType Cache::Contains(KeyType key) const noexcept
+        Cache::DataSizeType Cache::Contains(const ByteType *key) const noexcept
         {
             for (auto data : data_)
             {
@@ -35,10 +40,24 @@ namespace Game
             return {nullptr, 0};
         }
 
-        void Cache::Push(KeyType key, DataType data, size_t keySize, size_t dataSize) noexcept
+        void Cache::Push(const ByteType *key, const ByteType *data, size_t keySize, size_t dataSize) noexcept
         {
-            KeyType kKey = ::new ByteType[keySize]();
-            DataType kData = ::new ByteType[dataSize]();
+            if (!key || !data)
+            {
+                return;
+            }
+
+            ByteType *kKey = static_cast<ByteType *>(malloc(keySize * sizeof(ByteType)));
+            ByteType *kData = static_cast<ByteType *>(malloc(dataSize * sizeof(ByteType)));
+
+            if (!kKey || !kData)
+            {
+                return;
+            }
+
+
+            memcpy(kKey, key, sizeof(ByteType) * keySize);
+            memcpy(kData, data, sizeof(ByteType) * dataSize);
 
 
             data_.insert({
@@ -65,17 +84,19 @@ namespace Game
 
         void Cache::Release()
         {
-            delete[] cache;
+            delete cache;
             cache = nullptr;
         }
 
 
         Cache::~Cache()
         {
-            for (const auto &item : data_)
+            for (auto &item : data_)
             {
-                delete[] item.first;
-                delete[] item.second.second.first;
+                void *pKey = item.first;
+                void *pData = item.second.second.first;
+                free(pKey);
+                free(pData);
             }
         }
 
