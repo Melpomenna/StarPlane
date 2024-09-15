@@ -11,6 +11,7 @@
 
 namespace Game
 {
+    class Application;
 
     namespace GUI
     {
@@ -20,6 +21,8 @@ namespace Game
         class Render final
         {
         public:
+            friend class Application;
+
             Render() = delete;
             explicit Render(unsigned width, unsigned height, const char *title);
             ~Render();
@@ -34,7 +37,12 @@ namespace Game
 
             void AddNode(Node *);
 
+            static Render *ResolveRender() noexcept;
+
         private:
+            static void ReleaseRender() noexcept;
+            static void InitRender(unsigned width, unsigned height, const char *title) noexcept;
+
             void Init() noexcept;
             void Destroy() noexcept;
 

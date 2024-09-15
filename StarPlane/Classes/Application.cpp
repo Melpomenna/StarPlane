@@ -18,7 +18,7 @@ namespace Game
 
     void Application::Init() noexcept
     {
-        render_ = std::make_unique<GUI::Render>(width_, height_, title_);
+        GUI::Render::InitRender(width_, height_, title_);
         timer_ = std::make_shared<Timer>();
     }
 
@@ -34,20 +34,21 @@ namespace Game
             GUI::Node *player = GUI::CreateRectangle(width, height);
             player->LoadTexture(TEXTURE_PATH(Plane.png));
             double dt = 1E-6;
-            render_->AddNode(player);
+            auto render = GUI::Render::ResolveRender();
+            render->AddNode(player);
 
             player->SetPos(-static_cast<double>(width_) / 3, 0);
 
 
-            while (render_->IsRunning())
+            while (render->IsRunning())
             {
                 timer_->Mark();
-                render_->Draw();
+                render->Draw();
                 dt = timer_->Peek();
             }
-            if (render_->HasException())
+            if (render->HasException())
             {
-                render_->Terminate();
+                render->Terminate();
             }
         }
         catch (...)
@@ -66,6 +67,7 @@ namespace Game
     void Application::Destroy() noexcept
     {
         Cache::Release();
+        GUI::Render::ReleaseRender();
     }
 
 

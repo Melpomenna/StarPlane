@@ -5,11 +5,6 @@
 namespace Game
 {
 
-    namespace GUI
-    {
-        class Render;
-    }
-
     inline namespace Utils
     {
         class Timer;
@@ -33,7 +28,6 @@ namespace Game
 
         const unsigned width_, height_;
         const char *title_;
-        std::unique_ptr<GUI::Render> render_;
         std::shared_ptr<Timer> timer_;
     };
 

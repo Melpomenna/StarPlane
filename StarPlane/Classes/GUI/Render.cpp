@@ -15,6 +15,11 @@ namespace Game
 {
     namespace GUI
     {
+        namespace
+        {
+            Render *render = nullptr;
+        }
+
         Render::Render(unsigned width, unsigned height, const char *title) :
             width_(width), height_(height), title_(title), window_(nullptr)
         {
@@ -230,6 +235,26 @@ namespace Game
                 return;
             }
             nodes_.push_back(node);
+        }
+
+        void Render::InitRender(unsigned width, unsigned height, const char *title) noexcept
+        {
+            if (!render)
+            {
+                render = ::new Render(width, height, title);
+            }
+        }
+
+
+        Render *Render::ResolveRender() noexcept
+        {
+            return render;
+        }
+
+
+        void Render::ReleaseRender() noexcept
+        {
+            ::delete render;
         }
 
 
