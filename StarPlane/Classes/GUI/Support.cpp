@@ -1,6 +1,3 @@
-#define USING_WINAPI
-#include <Utils/Config.h>
-
 #include "Support.h"
 
 #include <Utils/Cache.h>
@@ -11,9 +8,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <GL/glew.h>
+#include <GUI/Render.h>
 
 #include <GUI/Texture.h>
+
 
 namespace Game
 {
@@ -49,9 +47,11 @@ namespace Game
 
             node->LoadTexture(texture);
 
+            const auto render = Render::ResolveRender();
+
             glm::mat4x4 model = glm::mat4(1.0f);
-            glm::mat4x4 projection = glm::ortho(-static_cast<float>(APP_WIDTH), static_cast<float>(APP_WIDTH),
-                                                -static_cast<float>(APP_HEIGHT), static_cast<float>(APP_HEIGHT));
+            glm::mat4x4 projection = glm::ortho(-render->GetWidth(), render->GetWidth(), -render->GetHeight(),
+                                                render->GetHeight());
             node->SetModel(model);
             node->SetProjection(projection);
             return node;
@@ -62,9 +62,12 @@ namespace Game
         {
             Node *node = ::new Rectangle(width, height);
 
+            const auto render = Render::ResolveRender();
+
             glm::mat4x4 model = glm::mat4(1.0f);
-            glm::mat4x4 projection = glm::ortho(-static_cast<float>(APP_WIDTH), static_cast<float>(APP_WIDTH),
-                                                -static_cast<float>(APP_HEIGHT), static_cast<float>(APP_HEIGHT));
+            glm::mat4x4 projection =
+                glm::ortho(-render->GetWidth(), render->GetWidth(), -render->GetHeight(), render->GetHeight());
+
             node->SetModel(model);
             node->SetProjection(projection);
             return node;

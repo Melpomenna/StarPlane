@@ -11,6 +11,8 @@
 
 #include <GUI/Node.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace Game
 {
     namespace GUI
@@ -205,6 +207,31 @@ namespace Game
 
         }
 
+        void Render::InitEventHandler(void (*handler)(GLFWwindow *, int, int, int, int)) const noexcept
+        {
+            glfwSetKeyCallback(window_, handler);
+        }
+
+        void Render::InitOnResizeCallback(void (*handler)(GLFWwindow *, int, int)) const noexcept
+        {
+            glfwSetFramebufferSizeCallback(window_, handler);
+        }
+
+        void Render::OnResize(int width, int height)
+        {
+            width_ = width;
+            height_ = height;
+            LoadMatrixProjection();
+
+            for (auto node : nodes_)
+            {
+                glm::mat4x4 projection =
+                    glm::ortho(-GetWidth(), GetWidth(), -GetHeight(), GetHeight());
+
+                node->SetProjection(projection);
+            }
+        }
+
 
         Render::~Render()
         {
@@ -255,6 +282,17 @@ namespace Game
         void Render::ReleaseRender() noexcept
         {
             ::delete render;
+        }
+
+
+        double Render::GetWidth() const noexcept
+        {
+            return width_;
+        }
+
+        double Render::GetHeight() const noexcept
+        {
+            return height_;
         }
 
 

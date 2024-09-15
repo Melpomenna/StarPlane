@@ -39,9 +39,19 @@ namespace Game
 
             static Render *ResolveRender() noexcept;
 
+            void InitEventHandler(void (*handler)(GLFWwindow *, int, int, int, int)) const noexcept;
+            void InitOnResizeCallback(void (*handler)(GLFWwindow *, int, int)) const noexcept;
+
+			void OnResize(int, int);
+
+            double GetWidth() const noexcept;
+            double GetHeight() const noexcept;
+
         private:
             static void ReleaseRender() noexcept;
             static void InitRender(unsigned width, unsigned height, const char *title) noexcept;
+
+			void LoadMatrixProjection() const noexcept;
 
             void Init() noexcept;
             void Destroy() noexcept;
@@ -49,10 +59,9 @@ namespace Game
             void SetIcon() const noexcept;
             static void ClearErrors() noexcept;
             void PullError() noexcept;
-            void LoadMatrixProjection() const noexcept;
 
         private:
-            const unsigned width_, height_;
+            unsigned width_, height_;
             const char *title_;
             GLFWwindow *window_;
             Optional<std::exception_ptr> exception_;

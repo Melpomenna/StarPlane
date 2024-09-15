@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <string>
 #include <Utils/Config.h>
 
 #include <GUI/Node.h>
@@ -10,6 +11,19 @@
 
 namespace Game
 {
+    void EventControl(GLFWwindow *, int key, int scancode, int action, int modes)
+    {
+        std::string data = "key:" + std::to_string(key) + " scancode:" + std::to_string(scancode) +
+            " action:" + std::to_string(action) + " modes:" + std::to_string(modes) + "\n";
+        APP_LOG(data.c_str());
+    }
+
+    void OnResize(GLFWwindow *window, int width, int height)
+    {
+        (void)window;
+        GUI::Render::ResolveRender()->OnResize(width, height);
+    }
+
     Application::Application(unsigned width, unsigned height, const char *title) :
         width_(width), height_(height), title_(title)
     {
@@ -19,6 +33,8 @@ namespace Game
     void Application::Init() noexcept
     {
         GUI::Render::InitRender(width_, height_, title_);
+        GUI::Render::ResolveRender()->InitEventHandler(EventControl);
+        GUI::Render::ResolveRender()->InitOnResizeCallback(OnResize);
         timer_ = std::make_shared<Timer>();
     }
 
