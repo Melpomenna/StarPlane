@@ -7,6 +7,7 @@
 #include <GUI/ShaderProgram.h>
 #include <GUI/Buffers/VertexBuffer.h>
 #include <GUI/Buffers/IndexBuffer.h>
+#include <GUI/Texture.h>
 
 #include <glm/gtc/type_ptr.inl>
 
@@ -24,7 +25,16 @@ namespace Game
             program_ = std::make_shared<ShaderProgram>(vertexShader, fragmentShader);
             vertexBuffer_ = std::make_shared<VertexBuffer>();
             indexBuffer_ = std::make_shared<IndexBuffer>();
-            colorBuffer_ = std::make_shared<VertexBuffer>(4, renderType, 1);
+
+            auto colorLocation = glGetUniformLocation(program_->Id(), "color");
+
+            if (colorLocation == -1)
+            {
+                colorLocation = 1;
+            }
+
+            colorBuffer_ = std::make_shared<VertexBuffer>(4, renderType, colorLocation);
+            texture_ = std::make_shared<Texture>(program_->Id(), renderType);
             vertexBuffer_->ChangeRenderType(renderType);
             indexBuffer_->ChangeRenderType(renderType);
         }
@@ -34,6 +44,7 @@ namespace Game
             vertexBuffer_->Bind();
             colorBuffer_->Bind();
             indexBuffer_->Bind();
+            texture_->Bind();
             program_->Bind();
         }
 
@@ -85,11 +96,11 @@ namespace Game
                 __m256d result = _mm256_add_pd(selfColor, i_color);
                 _mm256_store_pd(data + i, result);
 #if defined(ENABLE_LOG)
-                auto r = "\nr:" + std::to_string(data[i]) + " ,g:";
-                auto g = std::to_string(data[i + 1]) + " ,b:";
-                auto b = std::to_string(data[i + 2]) + " ,a:";
-                auto a = std::to_string(data[i + 3]) + "\n";
-                auto outStr = r + g + b + a;
+                const auto dr = "\nr:" + std::to_string(data[i]) + " ,g:";
+                const auto dg = std::to_string(data[i + 1]) + " ,b:";
+                const auto db = std::to_string(data[i + 2]) + " ,a:";
+                const auto da = std::to_string(data[i + 3]) + "\n";
+                const auto outStr = dr + dg + db + da;
                 APP_LOG(outStr.c_str());
 #endif
             }
@@ -121,6 +132,13 @@ namespace Game
                 vertex[i + 1] += y;
             }
         }
+
+        void Node::SetPos(double x, double y) noexcept
+        {
+            (void)x;
+            (void)y;
+        }
+
 
         void Node::StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize)
         {
@@ -158,6 +176,27 @@ namespace Game
 
             projection_.mat_ = projection;
             glUniformMatrix4fv(projection_.uniformMatrixLocation, 1, GL_FALSE, glm::value_ptr(projection_.mat_));
+        }
+
+        void Node::LoadTexture(const char *texture) noexcept
+        {
+            texture_->LoadTexture(texture);
+        }
+
+        void Node::StoreTextureBuffer(const void *buffer, size_t size) noexcept
+        {
+            texture_->StoreBuffer(buffer, size);
+        }
+
+
+        std::shared_ptr<Texture> &Node::GetTexture() noexcept
+        {
+            return texture_;
+        }
+
+        const std::shared_ptr<Texture> &Node::GetTexture() const noexcept
+        {
+            return texture_;
         }
 
 

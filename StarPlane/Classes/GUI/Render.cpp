@@ -1,3 +1,4 @@
+#define USING_WINAPI
 #include <Utils/Config.h>
 
 #include "Render.h"
@@ -7,9 +8,6 @@
 #include <unordered_map>
 
 #include <resource.h>
-
-#define USING_WINAPI
-#include <Utils/Config.h>
 
 #include <GUI/Node.h>
 
@@ -60,7 +58,6 @@ namespace Game
             LoadMatrixProjection();
 
             glfwSetWindowTitle(window_, title_);
-
 
             SetIcon();
         }

@@ -11,10 +11,6 @@
 *.o
 *.obj
 
-# Precompiled Headers
-*.gch
-*.pch
-
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -29,6 +25,13 @@
 *.la
 *.a
 *.lib
+
+!StarPlane/ThirdParty/Lib/x64/*.lib
+!StarPlane/ThirdParty/Lib/x64/*.dll
+
+# Precompiled Headers
+*.gch
+*.pch
 
 # Executables
 *.exe
@@ -166,6 +169,7 @@ mono_crash.*
 [Rr]elease/
 [Rr]eleases/
 x64/
+!StarPlane/ThirdParty/Lib/x64/
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/

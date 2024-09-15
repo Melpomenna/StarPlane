@@ -3,14 +3,19 @@
 #define ENABLE_MUSIC 0
 #define ENABLE_ICON 1
 
-#define ROOT_SHADER_PATH ./Shaders/
+#define ROOT_SHADER_PATH ./Resources/Shaders/
+#define ROOT_TEXTURE_PATH ./Resources/Textures/
 #define CONCAT_IMPL(lhs, rhs) lhs##rhs
 #define CONCAT(lhs, rhs) CONCAT_IMPL(lhs,rhs)
 #define SHADERS_PATH_IMPL(__shader_name) CONCAT(ROOT_SHADER_PATH, __shader_name)
+#define TEXTURE_PATH_IMPL(__texture_name) CONCAT(ROOT_TEXTURE_PATH, __texture_name)
 #define AS_STR_IMPL(data) #data
 #define AS_STR(data) AS_STR_IMPL(data)
 #define ROOT_SHADER_PATH_STR AS_STR(ROOT_SHADER_PATH)
+#define ROOT_TEXTURE_PATH_AS_STR AS_STR(ROOT_TEXTURE_PATH)
 #define SHADERS_PATH(__shader_name) AS_STR(SHADERS_PATH_IMPL(__shader_name))
+#define TEXTURE_PATH(__texture_name) AS_STR(TEXTURE_PATH_IMPL(__texture_name))
+
 
 #ifndef APP_FULL_SIZE
 #if defined(_WIN32)

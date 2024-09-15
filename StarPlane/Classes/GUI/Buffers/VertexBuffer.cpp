@@ -3,7 +3,7 @@
 #include <cstring>
 #include <GL/glew.h>
 
-#include <unordered_map>
+#include <algorithm>
 
 namespace Game
 {
@@ -81,7 +81,6 @@ namespace Game
 
         void VertexBuffer::Bind() const noexcept
         {
-
             glBindBuffer(GL_ARRAY_BUFFER, vbo_);
             glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(sizeof(DataType) * size_), data_, renderType_);
             glVertexAttribPointer(attribute_, fragmentsCount_, Type(), GL_FALSE,

@@ -10,7 +10,7 @@ namespace Game
     namespace GUI
     {
 
-        class VertexBuffer : public Buffer
+        class VertexBuffer final : public Buffer
         {
         public:
             using DataType = double;

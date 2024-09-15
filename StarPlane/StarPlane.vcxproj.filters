@@ -64,14 +64,32 @@
     <Filter Include="Файлы заголовков\Resources">
       <UniqueIdentifier>{a686ec7b-7f02-4bfb-ab81-d7247bb540cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{a97b0202-b72c-4631-af6e-3bd3d3565d50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{2a2af4b7-03db-41a6-ac0f-4d9b199aecb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\Lib">
       <UniqueIdentifier>{416f4351-d210-4593-b19f-ddb8069a4623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Textures">
+      <UniqueIdentifier>{c3d69f03-82b5-4bcb-9c32-831d4c1fc1f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Textures">
+      <UniqueIdentifier>{e5b69323-606a-4d7e-8bf4-4a1a269e3925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Shaders">
+      <UniqueIdentifier>{adf31736-9034-424f-ad62-d80ce718fc6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Textures">
+      <UniqueIdentifier>{0b5a5358-1387-4ea0-a4af-cb4db7d41aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\Include">
+      <UniqueIdentifier>{153448d6-6dc3-486c-b8a4-195ad5089680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Nodes\Primitives">
+      <UniqueIdentifier>{21c7be17-c7aa-4236-b626-2a4e5944ceac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Nodes\Primitives">
+      <UniqueIdentifier>{cc04b1c5-2b8f-42f1-b12b-70258a9ab5cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +125,15 @@
     </ClCompile>
     <ClCompile Include="Classes\GUI\Node.cpp">
       <Filter>Исходные файлы\GUI\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Texture.cpp">
+      <Filter>Исходные файлы\GUI\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\Include\stb_image.cpp">
+      <Filter>ThirdParty\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Primitives\Rectangle.cpp">
+      <Filter>Исходные файлы\GUI\Nodes\Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +179,15 @@
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\GUI\Texture.h">
+      <Filter>Файлы заголовков\GUI\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\Include\stb_image.h">
+      <Filter>ThirdParty\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Primitives\Rectangle.h">
+      <Filter>Файлы заголовков\GUI\Nodes\Primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc">
@@ -162,14 +198,9 @@
     <Image Include="Resources\APP_ICON.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\BasicVertex.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\BasicFrag.frag">
-      <Filter>Shaders</Filter>
-    </None>
+    <Image Include="Resources\Textures\Plane.png">
+      <Filter>Файлы ресурсов\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\Lib\x64\gl3w.lib">
@@ -210,5 +241,13 @@
     <CopyFileToFolders Include="ThirdParty\Lib\x64\glfw3.dll">
       <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BasicFrag.frag">
+      <Filter>Файлы ресурсов\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\BasicVertex.vert">
+      <Filter>Файлы ресурсов\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

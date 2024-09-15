@@ -151,13 +151,16 @@
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Node.cpp" />
+    <ClCompile Include="Classes\GUI\Primitives\Rectangle.cpp" />
     <ClCompile Include="Classes\GUI\Render.cpp" />
     <ClCompile Include="Classes\GUI\Shader.cpp" />
     <ClCompile Include="Classes\GUI\ShaderProgram.cpp" />
     <ClCompile Include="Classes\GUI\Support.cpp" />
+    <ClCompile Include="Classes\GUI\Texture.cpp" />
     <ClCompile Include="Classes\Utils\Cache.cpp" />
     <ClCompile Include="Classes\Utils\Timer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ThirdParty\Include\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Application.h" />
@@ -165,19 +168,20 @@
     <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h" />
     <ClInclude Include="Classes\GUI\Node.h" />
+    <ClInclude Include="Classes\GUI\Primitives\Rectangle.h" />
     <ClInclude Include="Classes\GUI\Render.h" />
     <ClInclude Include="Classes\GUI\Shader.h" />
     <ClInclude Include="Classes\GUI\ShaderProgram.h" />
     <ClInclude Include="Classes\GUI\Support.h" />
+    <ClInclude Include="Classes\GUI\Texture.h" />
     <ClInclude Include="Classes\Utils\Cache.h" />
     <ClInclude Include="Classes\Utils\Config.h" />
     <ClInclude Include="Classes\Utils\Optional.h" />
     <ClInclude Include="Classes\Utils\Timer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ThirdParty\Include\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\BasicFrag.frag" />
-    <None Include="Shaders\BasicVertex.vert" />
     <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
@@ -193,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\APP_ICON.ico" />
+    <Image Include="Resources\Textures\Plane.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\Lib\x64\gl3w.lib" />
@@ -204,6 +209,10 @@
     <Library Include="ThirdParty\Lib\x64\glm.lib" />
     <Library Include="ThirdParty\Lib\x64\GlU32.Lib" />
     <Library Include="ThirdParty\Lib\x64\OpenGL32.Lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BasicFrag.frag" />
+    <None Include="Resources\Shaders\BasicVertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

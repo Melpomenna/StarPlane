@@ -1,10 +1,19 @@
+#define USING_WINAPI
+#include <Utils/Config.h>
+
 #include "Support.h"
 
 #include <Utils/Cache.h>
 
 #include <fstream>
 
-#include <GUI/Node.h>
+#include <GUI/Primitives/Rectangle.h>
+
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <GL/glew.h>
+
+#include <GUI/Texture.h>
 
 namespace Game
 {
@@ -29,33 +38,35 @@ namespace Game
             file.seekg(0, std::ios::beg);
             char *result = ::new char[size]();
             file.read(result, size);
+            file.close();
             Cache::ResolveCache()->Push(data, result, strlen(data), size);
             return result;
         }
 
-        Node *CreateNodeFromObjFile(const char *file)
+        Node *CreateNode(const char *vertexShader, const char *fragmentShader, const char *texture)
         {
-            auto data = ReadFile(file);
-            if (data == nullptr)
-            {
-                return nullptr;
-            }
+            Node *node = ::new Node(vertexShader, fragmentShader, GL_DYNAMIC_DRAW);
 
-            auto cacheData = Cache::ResolveCache()->Contains(data);
-            if (cacheData.first != nullptr)
-            {
-                Node *node = static_cast<Node *>(malloc(sizeof(Node)));
-                Node *cached = reinterpret_cast<Node *>(const_cast<char *>(cacheData.first));
-                ::new(node) Node(*cached);
-                return node;
-            }
+            node->LoadTexture(texture);
 
-            // Logic for import
+            glm::mat4x4 model = glm::mat4(1.0f);
+            glm::mat4x4 projection = glm::ortho(-static_cast<float>(APP_WIDTH), static_cast<float>(APP_WIDTH),
+                                                -static_cast<float>(APP_HEIGHT), static_cast<float>(APP_HEIGHT));
+            node->SetModel(model);
+            node->SetProjection(projection);
+            return node;
+        }
 
-            Node *node = ::new Node();
 
-            // cache data
+        Node *CreateRectangle(double width, double height)
+        {
+            Node *node = ::new Rectangle(width, height);
 
+            glm::mat4x4 model = glm::mat4(1.0f);
+            glm::mat4x4 projection = glm::ortho(-static_cast<float>(APP_WIDTH), static_cast<float>(APP_WIDTH),
+                                                -static_cast<float>(APP_HEIGHT), static_cast<float>(APP_HEIGHT));
+            node->SetModel(model);
+            node->SetProjection(projection);
             return node;
         }
 
