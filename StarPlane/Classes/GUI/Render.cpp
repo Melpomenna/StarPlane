@@ -19,10 +19,10 @@ namespace Game
     {
         namespace
         {
-            Render *render = nullptr;
+            Render *RENDER = nullptr;
         }
 
-        Render::Render(unsigned width, unsigned height, const char *title) :
+        Render::Render(const unsigned width, const unsigned height, const char *title) :
             width_(width), height_(height), title_(title), window_(nullptr)
         {
             Init();
@@ -32,8 +32,8 @@ namespace Game
         {
             if (!glfwInit())
             {
-                std::runtime_error error{"Cannot init glfw"};
-                exception_ = std::make_exception_ptr(error);
+                const std::runtime_error kError{"Cannot init glfw"};
+                exception_ = std::make_exception_ptr(kError);
                 return;
             }
 
@@ -46,19 +46,18 @@ namespace Game
 
             if (window_ == nullptr)
             {
-                std::runtime_error error{"Cannot create window"};
-                exception_ = std::make_exception_ptr(error);
+                const std::runtime_error kError{"Cannot create window"};
+                exception_ = std::make_exception_ptr(kError);
                 return;
             }
 
             glfwMakeContextCurrent(window_);
 
-            const GLenum errorCode = glewInit();
-            if (errorCode != GLEW_OK)
+            const GLenum kErrorCode = glewInit();
+            if (kErrorCode != GLEW_OK)
             {
-                (void)errorCode;
-                std::runtime_error error{"Cannot init glew"};
-                exception_ = std::make_exception_ptr(error);
+                const std::runtime_error kError{"Cannot init glew"};
+                exception_ = std::make_exception_ptr(kError);
                 return;
             }
 
@@ -105,11 +104,11 @@ namespace Game
             assert(hIcon != nullptr);
             if (hIcon)
             {
-                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_BIG, reinterpret_cast<LPARAM>(hIcon));
             }
             if (hIcon)
             {
-                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+                PostMessage(glfwGetWin32WindowFunc(window_), WM_SETICON, ICON_SMALL, reinterpret_cast<LPARAM>(hIcon));
             }
 #endif
         }
@@ -193,32 +192,42 @@ namespace Game
 
         bool Render::HasException() const noexcept
         {
-            return !window_ || exception_.has_value();
+            return !window_ || exception_.HasValue();
         }
 
 
         void Render::Terminate()
         {
             Destroy();
-            if (exception_.has_value())
+            if (exception_.HasValue())
             {
                 rethrow_exception(*exception_);
             }
 
         }
 
-        void Render::InitEventHandler(void (*handler)(GLFWwindow *, int, int, int, int)) const noexcept
+        void Render::InitKeyboardEventHandler(const KeyboardCallbackType handler) const noexcept
         {
             glfwSetKeyCallback(window_, handler);
         }
 
-        void Render::InitOnResizeCallback(void (*handler)(GLFWwindow *, int, int)) const noexcept
+        void Render::InitMouseEventHandler(const MouseKeyboardCallbackType handler) const noexcept
+        {
+            glfwSetMouseButtonCallback(window_, handler);
+        }
+
+
+        void Render::InitOnResizeCallback(const ResizeWindowCallbackType handler) const noexcept
         {
             glfwSetFramebufferSizeCallback(window_, handler);
         }
 
-        void Render::OnResize(int width, int height)
+        void Render::OnResize(const int width, const int height)
         {
+            if (width == 0 || height == 0)
+            {
+                return;
+            }
             width_ = width;
             height_ = height;
             LoadMatrixProjection();
@@ -245,7 +254,7 @@ namespace Game
             {
                 return;
             }
-            for (auto node : nodes_)
+            for (const auto node : nodes_)
             {
                 ::delete node;
             }
@@ -261,27 +270,35 @@ namespace Game
             {
                 return;
             }
+
+            if (std::find(nodes_.cbegin(), nodes_.cend(), node) != nodes_.cend())
+            {
+                return;
+            }
+
+
             nodes_.push_back(node);
         }
 
-        void Render::InitRender(unsigned width, unsigned height, const char *title) noexcept
+        void Render::InitRender(const unsigned width, const unsigned height, const char *title) noexcept
         {
-            if (!render)
+            if (!RENDER)
             {
-                render = ::new Render(width, height, title);
+                RENDER = ::new Render(width, height, title);
             }
         }
 
 
         Render *Render::ResolveRender() noexcept
         {
-            return render;
+            return RENDER;
         }
 
 
         void Render::ReleaseRender() noexcept
         {
-            ::delete render;
+            ::delete RENDER;
+            RENDER = nullptr;
         }
 
 

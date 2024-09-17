@@ -1,4 +1,4 @@
-﻿#define ENABLE_LOG
+﻿#define USING_WINAPI
 #include <Utils/Config.h>
 
 #include <Application.h>

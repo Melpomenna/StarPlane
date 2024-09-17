@@ -14,16 +14,16 @@ namespace Game
         {
         public:
             Texture() = default;
-            explicit Texture(unsigned shaderProgramId, unsigned renderType);
-            explicit Texture(unsigned shaderProgramId, unsigned renderType, const char *filePath);
+            explicit Texture(unsigned, unsigned);
+            explicit Texture(unsigned, unsigned, const char *);
             virtual ~Texture();
 
-            void LoadTexture(const char *filePath);
+            void LoadTexture(const char *);
 
             void Bind(unsigned int slot = 0) const noexcept;
-            void Unbind() noexcept;
+            void Unbind() const noexcept;
 
-            void StoreBuffer(const void *ptr, size_t size) noexcept;
+            void StoreBuffer(const void *, size_t) noexcept;
 
         private:
             void Read(const char *);
@@ -33,7 +33,7 @@ namespace Game
             char *filePath_;
             size_t fileLen_;
             unsigned char *buffer_;
-            int width_, height_, size_;
+            int width_, height_;
             unsigned id_;
             unsigned shaderProgramId_;
         };

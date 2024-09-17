@@ -11,7 +11,6 @@
 
 namespace Game
 {
-    class Application;
 
     namespace GUI
     {
@@ -24,7 +23,7 @@ namespace Game
             friend class Application;
 
             Render() = delete;
-            explicit Render(unsigned width, unsigned height, const char *title);
+            explicit Render(unsigned, unsigned, const char *);
             ~Render();
 
             Render(const Render &) = delete;
@@ -39,19 +38,24 @@ namespace Game
 
             static Render *ResolveRender() noexcept;
 
-            void InitEventHandler(void (*handler)(GLFWwindow *, int, int, int, int)) const noexcept;
-            void InitOnResizeCallback(void (*handler)(GLFWwindow *, int, int)) const noexcept;
-
-			void OnResize(int, int);
-
             double GetWidth() const noexcept;
             double GetHeight() const noexcept;
 
-        private:
-            static void ReleaseRender() noexcept;
-            static void InitRender(unsigned width, unsigned height, const char *title) noexcept;
+            void OnResize(int, int);
 
-			void LoadMatrixProjection() const noexcept;
+        private:
+            using KeyboardCallbackType = void (*)(GLFWwindow *, int, int, int, int);
+            using MouseKeyboardCallbackType = void (*)(GLFWwindow *, int, int, int);
+            using ResizeWindowCallbackType = void (*)(GLFWwindow *, int, int);
+
+            void InitKeyboardEventHandler(KeyboardCallbackType) const noexcept;
+            void InitMouseEventHandler(MouseKeyboardCallbackType) const noexcept;
+            void InitOnResizeCallback(ResizeWindowCallbackType) const noexcept;
+
+            static void ReleaseRender() noexcept;
+            static void InitRender(unsigned, unsigned, const char *) noexcept;
+
+            void LoadMatrixProjection() const noexcept;
 
             void Init() noexcept;
             void Destroy() noexcept;

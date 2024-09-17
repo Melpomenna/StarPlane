@@ -16,7 +16,7 @@ namespace Game
             using TimePointType = TimeType::time_point;
 
             Timer();
-            explicit Timer(TimePointType time);
+            explicit Timer(TimePointType);
             ~Timer() = default;
 
             Timer(const Timer &) noexcept;

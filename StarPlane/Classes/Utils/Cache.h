@@ -12,6 +12,8 @@ namespace Game
         class Cache final
         {
         public:
+            friend class Application;
+
             using ByteType = char;
             using KeyType = ByteType *;
             using DataType = ByteType *;
@@ -20,13 +22,13 @@ namespace Game
 
             ~Cache();
             static Cache *ResolveCache() noexcept;
-            DataSizeType Contains(const ByteType *, size_t size) const noexcept;
+            DataSizeType Contains(const ByteType *, size_t) const noexcept;
             DataSizeType Contains(const ByteType *) const noexcept;
-            void Push(const ByteType *, const ByteType *, size_t keySize, size_t dataSize) noexcept;
-
-            static void Release();
+            void Push(const ByteType *, const ByteType *, size_t, size_t) noexcept;
 
         private:
+            static void Release();
+
             Cache();
             std::unordered_map<KeyType, ValueType> data_;
         };

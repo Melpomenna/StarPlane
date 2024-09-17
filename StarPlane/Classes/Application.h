@@ -5,7 +5,6 @@
 namespace Game
 {
 
-
     inline namespace Utils
     {
         class Timer;
@@ -15,13 +14,13 @@ namespace Game
     {
     public:
         Application() = delete;
-        explicit Application(unsigned width, unsigned height, const char *title);
+        explicit Application(const unsigned width, const unsigned height, const char *title);
         ~Application();
 
         Application(const Application &) = delete;
         Application &operator=(const Application &) = delete;
 
-        int Run() noexcept;
+        int Run() const noexcept;
 
     private:
         void Init() noexcept;

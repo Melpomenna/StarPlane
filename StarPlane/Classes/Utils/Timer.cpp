@@ -10,7 +10,7 @@ namespace Game
             last_.store(TimeType::now());
         }
 
-        Timer::Timer(TimePointType time)
+        Timer::Timer(const TimePointType time)
         {
             last_.store(time);
         }

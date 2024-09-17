@@ -75,7 +75,7 @@ namespace Game
             return GL_TRIANGLES;
         }
 
-        void Node::FillColor(float r, float g, float b, float a) noexcept
+        void Node::FillColor(const float r, const float g, const float b, const float a) noexcept
         {
             auto data = colorBuffer_->CastToArray<double>();
             if (!data)
@@ -140,7 +140,7 @@ namespace Game
         }
 
 
-        void Node::StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize)
+        void Node::StoreBuffers(const void *vertex, const size_t vSize, const void *indexBuffer, const size_t iSize)
         {
             vertexBuffer_->MoveBuffer(vertex, vSize);
             indexBuffer_->MoveBuffer(indexBuffer, iSize);
@@ -183,7 +183,7 @@ namespace Game
             texture_->LoadTexture(texture);
         }
 
-        void Node::StoreTextureBuffer(const void *buffer, size_t size) noexcept
+        void Node::StoreTextureBuffer(const void *buffer, const size_t size) noexcept
         {
             texture_->StoreBuffer(buffer, size);
         }

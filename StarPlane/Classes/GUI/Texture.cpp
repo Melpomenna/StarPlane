@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include <ThirdParty/Include/stb_image.h>
+#include <stb_image/stb_image.h>
 
 #include <cstring>
 
@@ -14,18 +14,18 @@ namespace Game
 {
     namespace GUI
     {
-        Texture::Texture(unsigned shaderProgramId, unsigned renderType) :
-            filePath_(nullptr), fileLen_(), buffer_(nullptr), width_(), height_(), size_(), id_(0),
+        Texture::Texture(const unsigned shaderProgramId, unsigned renderType) :
+            filePath_(nullptr), fileLen_(), buffer_(nullptr), width_(), height_(), id_(0),
             shaderProgramId_(shaderProgramId)
         {
-            auto textureCoordLocation = glGetUniformLocation(shaderProgramId_, "ti_color");
+            auto textureCoordinateLocation = glGetUniformLocation(shaderProgramId_, "ti_color");
 
-            if (textureCoordLocation == -1)
+            if (textureCoordinateLocation == -1)
             {
-                textureCoordLocation = 4;
+                textureCoordinateLocation = 4;
             }
 
-            textureCoords_ = std::make_shared<VertexBuffer>(2, renderType, textureCoordLocation);
+            textureCoords_ = std::make_shared<VertexBuffer>(2, renderType, textureCoordinateLocation);
             glGenBuffers(1, &id_);
             glBindTexture(GL_TEXTURE_2D, id_);
 
@@ -40,7 +40,7 @@ namespace Game
 
         }
 
-        Texture::Texture(unsigned shaderProgramId, unsigned renderType, const char *filePath) :
+        Texture::Texture(const unsigned shaderProgramId, const unsigned renderType, const char *filePath) :
             Texture(shaderProgramId, renderType)
         {
             LoadTexture(filePath);
@@ -68,7 +68,7 @@ namespace Game
         }
 
 
-        void Texture::Bind(unsigned int slot) const noexcept
+        void Texture::Bind(const unsigned int slot) const noexcept
         {
             glActiveTexture(GL_TEXTURE0 + slot);
             glBindTexture(GL_TEXTURE_2D, id_);
@@ -109,13 +109,13 @@ namespace Game
 
         }
 
-        void Texture::StoreBuffer(const void *ptr, size_t size) noexcept
+        void Texture::StoreBuffer(const void *ptr, const size_t size) noexcept
         {
             textureCoords_->MoveBuffer(ptr, size);
         }
 
 
-        void Texture::Unbind() noexcept
+        void Texture::Unbind() const noexcept
         {
             glBindTexture(GL_TEXTURE_2D, 0);
         }

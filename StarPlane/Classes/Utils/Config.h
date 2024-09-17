@@ -43,6 +43,8 @@
 #define APP_LOG(str) OutputDebugStringA(str)
 #else
 #include <assert.h>
+#include <iostream>
+#define APP_LOG(str) std::cout << str
 #endif
 #else
 #define APP_LOG(str) (void)str;

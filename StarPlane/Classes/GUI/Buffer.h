@@ -10,7 +10,7 @@ namespace Game
         public:
             Buffer() = default;
 
-            explicit Buffer(unsigned renderType) :
+            explicit Buffer(const unsigned renderType) :
                 renderType_(renderType)
             {
             }
@@ -23,15 +23,13 @@ namespace Game
             virtual unsigned Type() const noexcept = 0;
             virtual unsigned Id() const noexcept = 0;
 
-            virtual void CreateBuffer(size_t size) noexcept
+            virtual void CreateBuffer(size_t) noexcept
             {
-                (void)size;
             }
 
-            virtual void MoveBuffer(const void *data, size_t size) noexcept
+            virtual void MoveBuffer(const void *, size_t) noexcept
             {
-                (void)data;
-                (void)size;
+
             }
 
             virtual unsigned RenderType() const noexcept
@@ -39,7 +37,7 @@ namespace Game
                 return renderType_;
             }
 
-            virtual void ChangeRenderType(unsigned type) noexcept
+            virtual void ChangeRenderType(const unsigned type) noexcept
             {
                 renderType_ = type;
             }

@@ -15,12 +15,12 @@ namespace Game
 
         public:
             IndexBuffer();
-            explicit IndexBuffer(size_t size, unsigned renderType);
+            explicit IndexBuffer(size_t, unsigned);
             ~IndexBuffer() override;
 
 
-            void CreateBuffer(size_t size) noexcept override;
-            void MoveBuffer(const void *data, size_t size) noexcept override;
+            void CreateBuffer(size_t) noexcept override;
+            void MoveBuffer(const void *, size_t) noexcept override;
 
             void Bind() const noexcept override;
             int Size() const noexcept override;

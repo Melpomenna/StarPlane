@@ -7,7 +7,7 @@ namespace Game
 {
     namespace GUI
     {
-        Shader::Shader(ShaderType type, const char *src) :
+        Shader::Shader(const ShaderType type, const char *src) :
             type_(type), error_(nullptr)
         {
             Init(src);
@@ -104,10 +104,11 @@ namespace Game
                 return GL_VERTEX_SHADER;
             case ShaderType::Fragment:
                 return GL_FRAGMENT_SHADER;
-            default:
-                return GL_FALSE;
+            case ShaderType::Non:
+                return GL_SHADER;
             }
 
+            return GL_FALSE;
         }
 
 

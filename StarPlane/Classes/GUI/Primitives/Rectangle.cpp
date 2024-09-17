@@ -11,7 +11,7 @@ namespace Game
 {
     namespace GUI
     {
-        Rectangle::Rectangle(double width, double height) :
+        Rectangle::Rectangle(const double width, const double height) :
             Node(SHADERS_PATH(BasicVertex.vert), SHADERS_PATH(BasicFrag.frag), GL_DYNAMIC_DRAW)
         {
             width_ = width;
@@ -51,7 +51,8 @@ namespace Game
             texture_->StoreBuffer(textureCoords, 8);
         }
 
-        void Rectangle::StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize)
+        void Rectangle::StoreBuffers(const void *vertex, const size_t vSize, const void *indexBuffer,
+                                     const size_t iSize)
         {
             (void)vertex;
             (void)vSize;
@@ -59,12 +60,12 @@ namespace Game
             (void)iSize;
         }
 
-        void Rectangle::SetPos(double x, double y) noexcept
+        void Rectangle::SetPos(const double x, const double y) noexcept
         {
             Move(x - currentPosX_, y - currentPosY_);
         }
 
-        void Rectangle::Move(double x, double y) noexcept
+        void Rectangle::Move(const double x, const double y) noexcept
         {
             double *coords = vertexBuffer_->CastToArray<double>();
             coords[0] += x;

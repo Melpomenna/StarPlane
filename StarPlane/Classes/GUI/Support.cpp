@@ -19,10 +19,10 @@ namespace Game
     {
         const char *ReadFile(const char *data)
         {
-            auto cachedData = Cache::ResolveCache()->Contains(data);
-            if (cachedData.first != nullptr)
+            const auto kCachedData = Cache::ResolveCache()->Contains(data);
+            if (kCachedData.first != nullptr)
             {
-                return cachedData.first;
+                return kCachedData.first;
             }
 
             std::ifstream file(data);
@@ -54,13 +54,15 @@ namespace Game
                                                 render->GetHeight());
             node->SetModel(model);
             node->SetProjection(projection);
+
+            render->AddNode(node);
             return node;
         }
 
 
-        Node *CreateRectangle(double width, double height)
+        Rectangle *CreateRectangle(const double width, const double height)
         {
-            Node *node = ::new Rectangle(width, height);
+            Rectangle *node = ::new Rectangle(width, height);
 
             const auto render = Render::ResolveRender();
 
@@ -70,6 +72,8 @@ namespace Game
 
             node->SetModel(model);
             node->SetProjection(projection);
+
+            render->AddNode(node);
             return node;
         }
 

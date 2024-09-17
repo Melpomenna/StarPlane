@@ -13,14 +13,14 @@ namespace Game
         {
         public:
             ShaderProgram();
-            explicit ShaderProgram(const char *vertexShader, const char *fragmentShader);
+            explicit ShaderProgram(const char *, const char *);
             virtual ~ShaderProgram();
 
             virtual void Bind() const noexcept;
             virtual int Id() const noexcept;
 
         protected:
-            virtual void Compile(const char *vertexShader, const char *fragmentShader) noexcept;
+            virtual void Compile(const char *, const char *) noexcept;
 
         protected:
             std::shared_ptr<Shader> vertexShader_, fragmentShader_;

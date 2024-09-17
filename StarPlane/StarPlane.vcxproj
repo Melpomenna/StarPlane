@@ -79,11 +79,11 @@
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -148,6 +148,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Application.cpp" />
+    <ClCompile Include="Classes\Core\Controller\EventControllerProcessor.cpp" />
+    <ClCompile Include="Classes\Core\Controller\Keyboard\KeyboardProcessor.cpp" />
+    <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp" />
+    <ClCompile Include="Classes\Core\Controller\Utils\Utils.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Node.cpp" />
@@ -160,10 +164,20 @@
     <ClCompile Include="Classes\Utils\Cache.cpp" />
     <ClCompile Include="Classes\Utils\Timer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ThirdParty\Include\stb_image.cpp" />
+    <ClCompile Include="ThirdParty\Include\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Application.h" />
+    <ClInclude Include="Classes\Core\Controller\EventControllerProcessor.h" />
+    <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardHandler.h" />
+    <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardProcessor.h" />
+    <ClInclude Include="Classes\Core\Controller\Keyboard\KeyboardEvents.h" />
+    <ClInclude Include="Classes\Core\Controller\Keyboard\KeyboardProcessor.h" />
+    <ClInclude Include="Classes\Core\Controller\Mouse\IMouseHandler.h" />
+    <ClInclude Include="Classes\Core\Controller\Mouse\IMouseProcessor.h" />
+    <ClInclude Include="Classes\Core\Controller\Mouse\MouseEvents.h" />
+    <ClInclude Include="Classes\Core\Controller\Mouse\MouseProcessor.h" />
+    <ClInclude Include="Classes\Core\Controller\Utils\Utils.h" />
     <ClInclude Include="Classes\GUI\Buffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h" />
@@ -179,7 +193,7 @@
     <ClInclude Include="Classes\Utils\Optional.h" />
     <ClInclude Include="Classes\Utils\Timer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ThirdParty\Include\stb_image.h" />
+    <ClInclude Include="ThirdParty\Include\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32.dll">

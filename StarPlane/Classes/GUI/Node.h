@@ -24,7 +24,7 @@ namespace Game
             };
 
             Node() = default;
-            explicit Node(const char *vertexShader, const char *fragmentShader, unsigned renderType);
+            explicit Node(const char *, const char *, unsigned);
             virtual ~Node() = default;
 
             virtual void Bind() noexcept;
@@ -33,16 +33,16 @@ namespace Game
             virtual int VertexCount() const noexcept;
             virtual unsigned ElementType() const noexcept;
             virtual unsigned IndexElementType() const noexcept;
-            virtual void FillColor(float r, float g, float b, float a = 1) noexcept;
-            virtual void SetColorFor(const void *color);
-            virtual void Update(double dt);
-            virtual void Move(double x, double y) noexcept;
-            virtual void SetPos(double x, double y) noexcept;
-            virtual void StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize);
+            virtual void FillColor(float, float, float, float a = 1) noexcept;
+            virtual void SetColorFor(const void *);
+            virtual void Update(double);
+            virtual void Move(double, double) noexcept;
+            virtual void SetPos(double, double) noexcept;
+            virtual void StoreBuffers(const void *, size_t, const void *, size_t);
             virtual void SetModel(glm::mat4x4 &) noexcept;
             virtual void SetProjection(glm::mat4x4 &) noexcept;
             virtual void LoadTexture(const char *) noexcept;
-            virtual void StoreTextureBuffer(const void *buffer, size_t size) noexcept;
+            virtual void StoreTextureBuffer(const void *, size_t) noexcept;
 
             std::shared_ptr<Texture> &GetTexture() noexcept;
             const std::shared_ptr<Texture> &GetTexture() const noexcept;

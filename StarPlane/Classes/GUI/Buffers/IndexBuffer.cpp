@@ -16,14 +16,14 @@ namespace Game
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
         }
 
-        IndexBuffer::IndexBuffer(size_t size, unsigned renderType) :
+        IndexBuffer::IndexBuffer(const size_t size, const unsigned renderType) :
             IndexBuffer()
         {
             renderType_ = renderType;
             CreateBuffer(size);
         }
 
-        void IndexBuffer::CreateBuffer(size_t size) noexcept
+        void IndexBuffer::CreateBuffer(const size_t size) noexcept
         {
             DataType *ptr = ::new(std::nothrow) DataType[size];
             if (!ptr)
@@ -39,7 +39,7 @@ namespace Game
             size_ = static_cast<int>(size);
         }
 
-        void IndexBuffer::MoveBuffer(const void *data, size_t size) noexcept
+        void IndexBuffer::MoveBuffer(const void *data, const size_t size) noexcept
         {
 
             if (!data)

@@ -17,13 +17,13 @@ namespace Game
 
         public:
             VertexBuffer();
-            VertexBuffer(int attribute);
-            VertexBuffer(int fragmentsCount, unsigned renderType, int attribute = 0);
-            explicit VertexBuffer(size_t size, unsigned renderType, int attribute = 0);
+            VertexBuffer(int);
+            VertexBuffer(int, unsigned, int attribute = 0);
+            explicit VertexBuffer(size_t, unsigned, int attribute = 0);
             ~VertexBuffer() override;
 
-            void CreateBuffer(size_t size) noexcept override;
-            void MoveBuffer(const void *data, size_t size) noexcept override;
+            void CreateBuffer(size_t) noexcept override;
+            void MoveBuffer(const void *, size_t) noexcept override;
 
             void Bind() const noexcept override;
             int Size() const noexcept override;

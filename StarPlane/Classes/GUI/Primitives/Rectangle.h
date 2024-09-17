@@ -12,12 +12,12 @@ namespace Game
         {
         public:
             Rectangle() = delete;
-            Rectangle(double width, double height);
+            Rectangle(double, double);
 
-            void StoreBuffers(const void *vertex, size_t vSize, const void *indexBuffer, size_t iSize) override;
+            void StoreBuffers(const void *, size_t, const void *, size_t) override;
 
-            void SetPos(double x, double y) noexcept override;
-            void Move(double x, double y) noexcept override;
+            void SetPos(double, double) noexcept override;
+            void Move(double, double) noexcept override;
 
         private:
             double width_, height_;

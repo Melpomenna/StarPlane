@@ -10,7 +10,7 @@ namespace Game
         };
 
         template <class T>
-        class Optional
+        class Optional final
         {
         public:
             using ValueType = T;
@@ -26,12 +26,13 @@ namespace Game
             {
             }
 
-            explicit Optional(ValueType &&value) :
+            template <class Q>
+            explicit Optional(Q &&value) :
                 value_(std::forward<ValueType>(value)), hasValue_(true)
             {
             }
 
-            virtual ~Optional() = default;
+            ~Optional() = default;
 
             bool operator==(ValueType other) const noexcept
             {
@@ -59,7 +60,7 @@ namespace Game
 
             bool operator==(const Optional &other) const noexcept
             {
-                return has_value() && other.has_value() && value_ && other.get();
+                return HasValue() && other.HasValue() && value_ && other.Get();
             }
 
             bool operator!=(const Optional &other) const noexcept
@@ -67,7 +68,8 @@ namespace Game
                 return !(*this == other);
             }
 
-            Optional &operator=(ValueType &&other)
+            template <class Q>
+            Optional &operator=(Q &&other)
             {
                 hasValue_ = true;
                 value_ = std::forward<ValueType>(other);
@@ -92,7 +94,7 @@ namespace Game
                 return value_;
             }
 
-            ValueType &get()
+            ValueType &Get()
             {
                 if (!hasValue_)
                 {
@@ -101,7 +103,7 @@ namespace Game
                 return value_;
             }
 
-            const ValueType &get() const
+            const ValueType &Get() const
             {
                 if (!hasValue_)
                 {
@@ -110,12 +112,12 @@ namespace Game
                 return value_;
             }
 
-            bool has_value() const noexcept
+            bool HasValue() const noexcept
             {
                 return hasValue_;
             }
 
-            void reset()
+            void Reset()
             {
                 hasValue_ = false;
             }

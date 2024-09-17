@@ -16,7 +16,7 @@ namespace Game
             glBindBuffer(GL_ARRAY_BUFFER, vbo_);
         }
 
-        VertexBuffer::VertexBuffer(int attribute) :
+        VertexBuffer::VertexBuffer(const int attribute) :
             data_(nullptr), size_(0), vbo_(0), fragmentsCount_(2), attribute_(attribute)
         {
             glGenBuffers(1, &vbo_);
@@ -24,21 +24,21 @@ namespace Game
         }
 
 
-        VertexBuffer::VertexBuffer(int fragmentsCount, unsigned renderType, int attribute) :
+        VertexBuffer::VertexBuffer(const int fragmentsCount, const unsigned renderType, const int attribute) :
             VertexBuffer(attribute)
         {
             renderType_ = renderType;
             fragmentsCount_ = fragmentsCount;
         }
 
-        VertexBuffer::VertexBuffer(size_t size, unsigned renderType, int attribute) :
+        VertexBuffer::VertexBuffer(const size_t size, const unsigned renderType, const int attribute) :
             VertexBuffer(attribute)
         {
             renderType_ = renderType;
             CreateBuffer(size);
         }
 
-        void VertexBuffer::CreateBuffer(size_t size) noexcept
+        void VertexBuffer::CreateBuffer(const size_t size) noexcept
         {
             DataType *ptr = ::new(std::nothrow) DataType[size];
             if (!ptr)
@@ -54,7 +54,7 @@ namespace Game
             size_ = static_cast<int>(size);
         }
 
-        void VertexBuffer::MoveBuffer(const void *data, size_t size) noexcept
+        void VertexBuffer::MoveBuffer(const void *data,const size_t size) noexcept
         {
 
             if (!data)

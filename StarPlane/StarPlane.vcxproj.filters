@@ -91,6 +91,45 @@
     <Filter Include="Файлы заголовков\GUI\Nodes\Primitives">
       <UniqueIdentifier>{cc04b1c5-2b8f-42f1-b12b-70258a9ab5cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty\Include\stb_image">
+      <UniqueIdentifier>{f7e184e2-4dcb-4e30-ab18-b5ec31d38be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\Include\stb_image\public">
+      <UniqueIdentifier>{6c419e2e-c5a5-455e-bb75-d2c4f0770061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\Include\stb_image\private">
+      <UniqueIdentifier>{4ef2a084-3554-4a35-b6be-0bd2659b9df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core">
+      <UniqueIdentifier>{cd775104-7846-4f24-9633-064c1e6deb84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core">
+      <UniqueIdentifier>{6d44ffb5-5f7d-42b9-a15e-1f362d2bbbfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core\Controller">
+      <UniqueIdentifier>{b169912b-c95b-422c-aaff-f58780c811c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Controller">
+      <UniqueIdentifier>{4ee1a4f7-bf23-4efb-9983-2f9ca9964983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Controller\Keyboard">
+      <UniqueIdentifier>{aa38861c-2aa4-4d3a-85ec-2793931b8162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Controller\Mouse">
+      <UniqueIdentifier>{aba8f3b2-ed4c-4a17-b1e6-fdc7b5f35aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core\Controller\Keyboard">
+      <UniqueIdentifier>{429941b0-3b01-483a-8b55-b975aa483507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core\Controller\Mouse">
+      <UniqueIdentifier>{ac945361-535d-448e-945d-9a369ed7aa26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Controller\Utils">
+      <UniqueIdentifier>{975391ab-c7c6-47fe-9750-38de91d69433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core\Controller\Utils">
+      <UniqueIdentifier>{f76cdec3-a1df-482d-9ee5-0a4aa56c2493}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
@@ -129,11 +168,23 @@
     <ClCompile Include="Classes\GUI\Texture.cpp">
       <Filter>Исходные файлы\GUI\Textures</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\Include\stb_image.cpp">
-      <Filter>ThirdParty\Include</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\GUI\Primitives\Rectangle.cpp">
       <Filter>Исходные файлы\GUI\Nodes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\Include\stb_image\stb_image.cpp">
+      <Filter>ThirdParty\Include\stb_image\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Controller\EventControllerProcessor.cpp">
+      <Filter>Исходные файлы\Core\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Controller\Utils\Utils.cpp">
+      <Filter>Исходные файлы\Core\Controller\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Controller\Keyboard\KeyboardProcessor.cpp">
+      <Filter>Исходные файлы\Core\Controller\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp">
+      <Filter>Исходные файлы\Core\Controller\Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,11 +233,41 @@
     <ClInclude Include="Classes\GUI\Texture.h">
       <Filter>Файлы заголовков\GUI\Textures</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\Include\stb_image.h">
-      <Filter>ThirdParty\Include</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\GUI\Primitives\Rectangle.h">
       <Filter>Файлы заголовков\GUI\Nodes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\Include\stb_image\stb_image.h">
+      <Filter>ThirdParty\Include\stb_image\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\EventControllerProcessor.h">
+      <Filter>Файлы заголовков\Core\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Keyboard\KeyboardEvents.h">
+      <Filter>Файлы заголовков\Core\Controller\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Mouse\MouseEvents.h">
+      <Filter>Файлы заголовков\Core\Controller\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Utils\Utils.h">
+      <Filter>Файлы заголовков\Core\Controller\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardProcessor.h">
+      <Filter>Файлы заголовков\Core\Controller\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Mouse\IMouseProcessor.h">
+      <Filter>Файлы заголовков\Core\Controller\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Keyboard\KeyboardProcessor.h">
+      <Filter>Файлы заголовков\Core\Controller\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardHandler.h">
+      <Filter>Файлы заголовков\Core\Controller\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Mouse\IMouseHandler.h">
+      <Filter>Файлы заголовков\Core\Controller\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Controller\Mouse\MouseProcessor.h">
+      <Filter>Файлы заголовков\Core\Controller\Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
