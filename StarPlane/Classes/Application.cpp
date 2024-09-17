@@ -3,12 +3,13 @@
 #include <string>
 #include <Utils/Config.h>
 
-#include <GUI/Primitives/Rectangle.h>
 #include <Core/Controller/EventControllerProcessor.h>
-#include <GUI/Support.h>
+#include <Core/Actor/ActorSystem.h>
 #include <GUI/Render.h>
 #include <Utils/Cache.h>
 #include <Utils/Timer.h>
+
+#include <Game/AppDelegate.h>
 
 namespace Game
 {
@@ -54,6 +55,7 @@ namespace Game
 
     void Application::Init() noexcept
     {
+        Core::ActorSystem::Init();
         GUI::Render::InitRender(width_, height_, title_);
         Core::EventControllerProcessor::Init();
         GUI::Render::ResolveRender()->InitKeyboardEventHandler(KeyboardEventControl);
@@ -68,22 +70,19 @@ namespace Game
         try
         {
 
-            constexpr double width = 150;
-            constexpr double height = 150;
-
-            auto player = GUI::CreateRectangle(width, height);
-            player->LoadTexture(TEXTURE_PATH(Plane.png));
+            auto actorSystem = Core::ActorSystem::ResolveActorSystem();
             const auto render = GUI::Render::ResolveRender();
 
-            player->SetPos(-static_cast<double>(width_) / 3, 0);
-
+            AppDelegate *delegate = ::new AppDelegate();
 
             while (render->IsRunning())
             {
                 double dt = 1E-6;
                 timer_->Mark();
                 render->Draw();
+                actorSystem->Update(dt);
                 dt = timer_->Peek();
+                render->RemoveUnusedNodes();
             }
             if (render->HasException())
             {
@@ -106,6 +105,7 @@ namespace Game
     void Application::Destroy() noexcept
     {
         Cache::Release();
+        Core::ActorSystem::Destroy();
         Core::EventControllerProcessor::ResolveEventController();
         GUI::Render::ReleaseRender();
     }

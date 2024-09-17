@@ -35,6 +35,7 @@ namespace Game
             void Terminate();
 
             void AddNode(Node *);
+            void RemoveNode(Node *);
 
             static Render *ResolveRender() noexcept;
 
@@ -42,6 +43,8 @@ namespace Game
             double GetHeight() const noexcept;
 
             void OnResize(int, int);
+
+            void RemoveUnusedNodes();
 
         private:
             using KeyboardCallbackType = void (*)(GLFWwindow *, int, int, int, int);

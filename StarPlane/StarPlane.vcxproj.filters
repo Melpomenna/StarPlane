@@ -130,6 +130,18 @@
     <Filter Include="Исходные файлы\Core\Controller\Utils">
       <UniqueIdentifier>{f76cdec3-a1df-482d-9ee5-0a4aa56c2493}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Core\Actors">
+      <UniqueIdentifier>{966f7240-2981-4047-b34b-ce889dc21803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\Actor">
+      <UniqueIdentifier>{607840ab-ac0b-418e-82a0-2e88d39fda1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game">
+      <UniqueIdentifier>{9e8e3c7a-d24b-4bf6-85b8-2339f7202f91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Game">
+      <UniqueIdentifier>{65633a22-6025-4a03-b44f-308a41bdc44f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
@@ -185,6 +197,15 @@
     </ClCompile>
     <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp">
       <Filter>Исходные файлы\Core\Controller\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Actor\Actor.cpp">
+      <Filter>Исходные файлы\Core\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Core\Actor\ActorSystem.cpp">
+      <Filter>Исходные файлы\Core\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\AppDelegate.cpp">
+      <Filter>Исходные файлы\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="Classes\Core\Controller\Mouse\MouseProcessor.h">
       <Filter>Файлы заголовков\Core\Controller\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Actor\Actor.h">
+      <Filter>Файлы заголовков\Core\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Core\Actor\ActorSystem.h">
+      <Filter>Файлы заголовков\Core\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\AppDelegate.h">
+      <Filter>Файлы заголовков\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

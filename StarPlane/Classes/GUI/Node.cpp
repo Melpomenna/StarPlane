@@ -3,7 +3,7 @@
 #include "Node.h"
 
 
-#include <GL/glew.h>
+#include <GUI/Render.h>
 #include <GUI/ShaderProgram.h>
 #include <GUI/Buffers/VertexBuffer.h>
 #include <GUI/Buffers/IndexBuffer.h>
@@ -20,7 +20,19 @@ namespace Game
     namespace GUI
     {
 
-        Node::Node(const char *vertexShader, const char *fragmentShader, unsigned renderType)
+        Node::Node()
+        {
+            Render::ResolveRender()->AddNode(this);
+        }
+
+        Node::~Node()
+        {
+            Render::ResolveRender()->RemoveNode(this);
+        }
+
+
+        Node::Node(const char *vertexShader, const char *fragmentShader, unsigned renderType) :
+            Node()
         {
             program_ = std::make_shared<ShaderProgram>(vertexShader, fragmentShader);
             vertexBuffer_ = std::make_shared<VertexBuffer>();
@@ -197,6 +209,16 @@ namespace Game
         const std::shared_ptr<Texture> &Node::GetTexture() const noexcept
         {
             return texture_;
+        }
+
+        bool Node::IsAvailableForDestroy() const noexcept
+        {
+            return availableForDestroy_;
+        }
+
+        void Node::Destroy() noexcept
+        {
+            availableForDestroy_ = true;
         }
 
 

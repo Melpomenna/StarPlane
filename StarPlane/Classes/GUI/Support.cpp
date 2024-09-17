@@ -55,7 +55,6 @@ namespace Game
             node->SetModel(model);
             node->SetProjection(projection);
 
-            render->AddNode(node);
             return node;
         }
 
@@ -73,7 +72,6 @@ namespace Game
             node->SetModel(model);
             node->SetProjection(projection);
 
-            render->AddNode(node);
             return node;
         }
 

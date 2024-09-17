@@ -3,7 +3,9 @@
 
 #include "Render.h"
 
+#include <algorithm>
 #include <cassert>
+#include <queue>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -254,10 +256,19 @@ namespace Game
             {
                 return;
             }
+            std::queue<Node *> removed{};
+
             for (const auto node : nodes_)
             {
-                ::delete node;
+                removed.push(node);
             }
+            nodes_.clear();
+            while (!removed.empty())
+            {
+                ::delete removed.front();
+                removed.pop();
+            }
+
             glfwDestroyWindow(window_);
             window_ = nullptr;
             glfwTerminate();
@@ -280,11 +291,57 @@ namespace Game
             nodes_.push_back(node);
         }
 
+        void Render::RemoveNode(Node *node)
+        {
+            if (!node || nodes_.empty())
+            {
+                return;
+            }
+
+            const auto it = std::remove(nodes_.begin(), nodes_.end(), node);
+            if (it == nodes_.cend())
+            {
+                return;
+            }
+
+            nodes_.erase(it);
+        }
+
+
         void Render::InitRender(const unsigned width, const unsigned height, const char *title) noexcept
         {
             if (!RENDER)
             {
                 RENDER = ::new Render(width, height, title);
+            }
+        }
+
+        void Render::RemoveUnusedNodes()
+        {
+
+            std::sort(nodes_.begin(), nodes_.end(),
+                      [](const Node *lhs, Node *)
+                      {
+                          return lhs->IsAvailableForDestroy();
+                      });
+
+            const auto it =
+                std::remove_if(nodes_.begin(), nodes_.end(), [](const Node *node)
+                {
+                    return node->IsAvailableForDestroy();
+                });
+            std::vector<Node *> removed{};
+            removed.reserve(nodes_.cend() - it);
+
+            for (size_t i = it - nodes_.begin(); i < nodes_.size(); ++i)
+            {
+                removed.push_back(nodes_[i]);
+            }
+
+            nodes_.erase(it, nodes_.cend());
+            for (const auto node : removed)
+            {
+                ::delete node;
             }
         }
 

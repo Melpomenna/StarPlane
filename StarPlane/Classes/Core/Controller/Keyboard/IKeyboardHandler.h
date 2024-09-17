@@ -43,7 +43,10 @@ namespace Game
                     return true;
                 }
 
-                virtual void SetBindings(Key, int);
+                virtual void SetBindings(Key, int)
+                {
+
+                }
             };
         }
     }

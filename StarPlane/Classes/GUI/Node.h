@@ -23,9 +23,9 @@ namespace Game
                 int uniformMatrixLocation = -1;
             };
 
-            Node() = default;
+            Node();
             explicit Node(const char *, const char *, unsigned);
-            virtual ~Node() = default;
+            virtual ~Node();
 
             virtual void Bind() noexcept;
             virtual unsigned RenderMode() const noexcept;
@@ -47,6 +47,9 @@ namespace Game
             std::shared_ptr<Texture> &GetTexture() noexcept;
             const std::shared_ptr<Texture> &GetTexture() const noexcept;
 
+            bool IsAvailableForDestroy() const noexcept;
+            void Destroy() noexcept;
+
         protected:
             std::shared_ptr<ShaderProgram> program_;
             std::shared_ptr<Buffer> vertexBuffer_;
@@ -54,6 +57,9 @@ namespace Game
             std::shared_ptr<Buffer> indexBuffer_;
             std::shared_ptr<Texture> texture_;
             glmMat4x4Wrapper model_, projection_;
+
+        private:
+            bool availableForDestroy_ = false;
         };
     } // namespace GUI
 

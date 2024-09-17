@@ -148,10 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Application.cpp" />
+    <ClCompile Include="Classes\Core\Actor\Actor.cpp" />
+    <ClCompile Include="Classes\Core\Actor\ActorSystem.cpp" />
     <ClCompile Include="Classes\Core\Controller\EventControllerProcessor.cpp" />
     <ClCompile Include="Classes\Core\Controller\Keyboard\KeyboardProcessor.cpp" />
     <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp" />
     <ClCompile Include="Classes\Core\Controller\Utils\Utils.cpp" />
+    <ClCompile Include="Classes\Game\AppDelegate.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Node.cpp" />
@@ -168,6 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Application.h" />
+    <ClInclude Include="Classes\Core\Actor\Actor.h" />
+    <ClInclude Include="Classes\Core\Actor\ActorSystem.h" />
     <ClInclude Include="Classes\Core\Controller\EventControllerProcessor.h" />
     <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardHandler.h" />
     <ClInclude Include="Classes\Core\Controller\Keyboard\IKeyboardProcessor.h" />
@@ -178,6 +183,7 @@
     <ClInclude Include="Classes\Core\Controller\Mouse\MouseEvents.h" />
     <ClInclude Include="Classes\Core\Controller\Mouse\MouseProcessor.h" />
     <ClInclude Include="Classes\Core\Controller\Utils\Utils.h" />
+    <ClInclude Include="Classes\Game\AppDelegate.h" />
     <ClInclude Include="Classes\GUI\Buffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h" />
