@@ -34,6 +34,7 @@ namespace Game
 
         if (time_ >= timeToNextFrame_)
         {
+            object_.Resize(object_.Size() + 20);
             time_ = 0;
             std::string textureName = ROOT_TEXTURE_PATH_AS_STR + std::string("Missles/Missle") + std::to_string(
                     textureIdx_) +

@@ -236,6 +236,15 @@ namespace Game
             return {0, 0};
         }
 
+        void Node::Resize(Size2D) noexcept
+        {
+
+        }
+
+        Size2D Size2D::operator+(const double value) const noexcept
+        {
+            return {width + value, height + value};
+        }
 
     }
 }

@@ -51,6 +51,22 @@ namespace Game
             texture_->StoreBuffer(textureCoords, 8);
         }
 
+        void Rectangle::Resize(const Size2D size) noexcept
+        {
+            const auto diffSizeX = size.width - width_;
+            const auto diffSizeY = size.height - height_;
+            height_ = size.height;
+            width_ = size.width;
+
+            double *coords = vertexBuffer_->CastToArray<double>();
+
+            coords[3] -= diffSizeY;
+            coords[4] += diffSizeX;
+            coords[5] -= diffSizeY;
+            coords[6] += diffSizeX;
+
+        }
+
         void Rectangle::StoreBuffers(const void *, const size_t, const void *,
                                      const size_t)
         {

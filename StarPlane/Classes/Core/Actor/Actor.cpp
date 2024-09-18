@@ -121,6 +121,15 @@ namespace Game
             return object_->Size();
         }
 
+		void Actor::ObjectWrapper::Resize(GUI::Size2D size) noexcept
+        {
+            if (object_)
+            {
+                object_->Resize(size);
+            }
+        }
+
+
 
     }
 }

@@ -22,6 +22,8 @@ namespace Game
 
         struct Size2D
         {
+            Size2D operator+(double) const noexcept;
+
             double width;
             double height;
         };
@@ -53,6 +55,7 @@ namespace Game
             virtual void SetPos(double, double) noexcept;
             virtual Position2D GetPos() const noexcept;
             virtual Size2D Size() const noexcept;
+            virtual void Resize(Size2D) noexcept;
             virtual void StoreBuffers(const void *, size_t, const void *, size_t);
             virtual void SetModel(glm::mat4x4 &) noexcept;
             virtual void SetProjection(glm::mat4x4 &) noexcept;

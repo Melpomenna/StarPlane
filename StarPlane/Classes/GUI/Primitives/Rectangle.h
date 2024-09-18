@@ -20,6 +20,7 @@ namespace Game
             Position2D GetPos() const noexcept override;
 			Size2D Size() const noexcept override;
             void Move(double, double) noexcept override;
+			void Resize(Size2D) noexcept override;
 
         private:
             double width_, height_;

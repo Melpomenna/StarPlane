@@ -26,6 +26,7 @@ namespace Game
                 GUI::Position2D GetPos() const noexcept;
                 GUI::Size2D WorldSize() const noexcept;
                 GUI::Size2D Size() const noexcept;
+                void Resize(GUI::Size2D) noexcept;
                 void SetPositionByWindow(double, double);
 
             private:
