@@ -56,6 +56,9 @@ namespace Game
                 virtual Key GetKey() const noexcept = 0;
                 virtual Action GetAction() const noexcept = 0;
 
+                virtual void Update(double)
+                {
+                }
 
             };
         }

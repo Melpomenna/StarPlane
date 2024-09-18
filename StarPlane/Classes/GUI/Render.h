@@ -46,14 +46,18 @@ namespace Game
 
             void RemoveUnusedNodes();
 
+            std::pair<double, double> GetCursorPosition() const noexcept;
+
         private:
             using KeyboardCallbackType = void (*)(GLFWwindow *, int, int, int, int);
-            using MouseKeyboardCallbackType = void (*)(GLFWwindow *, int, int, int);
+            using MouseCallbackType = void (*)(GLFWwindow *, int, int, int);
             using ResizeWindowCallbackType = void (*)(GLFWwindow *, int, int);
+            using MouseMoveCallbackType = void(*)(GLFWwindow *, double, double);
 
             void InitKeyboardEventHandler(KeyboardCallbackType) const noexcept;
-            void InitMouseEventHandler(MouseKeyboardCallbackType) const noexcept;
+            void InitMouseEventHandler(MouseCallbackType) const noexcept;
             void InitOnResizeCallback(ResizeWindowCallbackType) const noexcept;
+            void InitMouseMoveEventHandler(MouseMoveCallbackType) const noexcept;
 
             static void ReleaseRender() noexcept;
             static void InitRender(unsigned, unsigned, const char *) noexcept;

@@ -4,6 +4,8 @@
 #include <Core/Controller/Mouse/MouseEvents.h>
 #include <Core/Controller/Mouse/IMouseHandler.h>
 
+#include <GUI/Render.h>
+
 namespace Game
 {
     namespace Core
@@ -11,9 +13,11 @@ namespace Game
         inline namespace Mouse
         {
             MouseProcessor::MouseProcessor() :
-                current_(Key::Unknown), currentAction_(Action::Unknown)
+                current_(Key::Unknown), currentAction_(Action::Unknown), timeInDisable_(0), isMouseMove_(false)
             {
-
+                const auto cursorPos = GUI::Render::ResolveRender()->GetCursorPosition();
+                positionX_ = cursorPos.first;
+                positionY_ = cursorPos.second;
             }
 
             MouseProcessor::~MouseProcessor()
@@ -60,9 +64,51 @@ namespace Game
                 }
             }
 
+            void MouseProcessor::OnMove(const double x, const double y) noexcept
+            {
+                timeInDisable_ = 0;
+                isMouseMove_ = true;
+
+                const auto directionX = x > positionX_ ? MouseDirection::Left : MouseDirection::Right;
+                const auto directionY = y > positionY_ ? MouseDirection::Down : MouseDirection::Up;
+                positionX_ = x;
+                positionY_ = y;
+
+                Post([x, y, directionX, directionY](auto h)
+                {
+                    h->OnMouseMove(x, y, directionX, directionY);
+                });
+            }
+
+            void MouseProcessor::OnStopMove()
+            {
+                isMouseMove_ = false;
+
+                APP_LOG("OnStopMouseMove\n");
+
+                Post([](auto h)
+                {
+                    h->OnMouseStopMove();
+                });
+            }
+
+            void MouseProcessor::Update(const double dt)
+            {
+                if (!isMouseMove_)
+                {
+                    return;
+                }
+
+                timeInDisable_ += dt;
+                if (timeInDisable_ >= maxTimeToDisable)
+                {
+                    OnStopMove();
+                }
+            }
+
             void MouseProcessor::PushEvent(Key key, Action action) noexcept
             {
-                if (key == Key::Unknown || currentAction_ == Action::Unknown)
+                if (key == Key::Unknown || action == Action::Unknown)
                 {
                     APP_LOG("Unknown key or command for mouse\n");
                     return;

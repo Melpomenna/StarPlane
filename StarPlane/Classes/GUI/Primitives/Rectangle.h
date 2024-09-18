@@ -17,6 +17,8 @@ namespace Game
             void StoreBuffers(const void *, size_t, const void *, size_t) override;
 
             void SetPos(double, double) noexcept override;
+            Position2D GetPos() const noexcept override;
+			Size2D Size() const noexcept override;
             void Move(double, double) noexcept override;
 
         private:

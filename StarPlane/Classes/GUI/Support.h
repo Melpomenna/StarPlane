@@ -15,6 +15,6 @@ namespace Game
         Node *CreateNode(const char *vertexShader, const char *fragmentShader, const char *texture);
 
 
-        Rectangle *CreateRectangle(double width, double height);
+        Node *CreateRectangle(double width, double height);
     }
 }

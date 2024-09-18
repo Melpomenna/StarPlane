@@ -25,7 +25,16 @@ namespace Game
                 Press,
                 Release,
                 Repeat,
+                Move,
                 Unknown
+            };
+
+            enum class MouseDirection
+            {
+                Left,
+                Right,
+                Up,
+                Down
             };
         }
     }

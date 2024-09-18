@@ -33,9 +33,9 @@ namespace Game
             return ACTOR_SYSTEM;
         }
 
-        void ActorSystem::Update(double dt)
+        void ActorSystem::Update(const double dt)
         {
-            for (auto &actor : actors_)
+            for (const auto &actor : actors_)
             {
                 actor->Update(dt);
             }
@@ -77,6 +77,7 @@ namespace Game
             EventControllerProcessor::ResolveEventController()->UnsubscribeFromMouse(actor);
 
             actors_.erase(it);
+            delete actor;
         }
 
 

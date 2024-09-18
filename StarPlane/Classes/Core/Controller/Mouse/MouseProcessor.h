@@ -18,6 +18,8 @@ namespace Game
                 MouseProcessor();
                 ~MouseProcessor() override;
 
+                void Update(double) override;
+
                 bool IsPressed(Key) const noexcept override;
                 bool IsReleased(Key) const noexcept override;
                 bool IsRepeat(Key) const noexcept override;
@@ -31,6 +33,8 @@ namespace Game
 
                 void Unsubscribe(IMouseHandler *) override;
 
+                void OnMove(double, double) noexcept override;
+                void OnStopMove() override;
 
                 void Post(const std::function<void(IMouseHandler *)> &) override;
 
@@ -38,10 +42,14 @@ namespace Game
                 void Trim() noexcept;
 
                 static constexpr int onTrimBufferSize = 16;
+                static constexpr double maxTimeToDisable = 0.5;
                 Key current_;
                 Action currentAction_;
                 std::queue<std::pair<Key, Action>> touches_;
                 std::list<IMouseHandler *> handlers_;
+                double timeInDisable_;
+                double positionX_, positionY_;
+                bool isMouseMove_;
 
             };
         } // namespace Mouse

@@ -14,6 +14,18 @@ namespace Game
         class Buffer;
         class Texture;
 
+        struct Position2D
+        {
+            double x;
+            double y;
+        };
+
+        struct Size2D
+        {
+            double width;
+            double height;
+        };
+
         class Node
         {
         public:
@@ -27,7 +39,8 @@ namespace Game
             explicit Node(const char *, const char *, unsigned);
             virtual ~Node();
 
-            virtual void Bind() noexcept;
+            virtual void Bind(unsigned slot = 0) noexcept;
+            virtual void Unbind() noexcept;
             virtual unsigned RenderMode() const noexcept;
             virtual int IndexCount() const noexcept;
             virtual int VertexCount() const noexcept;
@@ -38,6 +51,8 @@ namespace Game
             virtual void Update(double);
             virtual void Move(double, double) noexcept;
             virtual void SetPos(double, double) noexcept;
+            virtual Position2D GetPos() const noexcept;
+            virtual Size2D Size() const noexcept;
             virtual void StoreBuffers(const void *, size_t, const void *, size_t);
             virtual void SetModel(glm::mat4x4 &) noexcept;
             virtual void SetProjection(glm::mat4x4 &) noexcept;

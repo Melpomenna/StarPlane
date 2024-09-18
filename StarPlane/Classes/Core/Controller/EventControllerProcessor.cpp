@@ -120,6 +120,12 @@ namespace Game
             return mouse_;
         }
 
+        void EventControllerProcessor::Update(const double dt)
+        {
+            keyboard_->Update(dt);
+            mouse_->Update(dt);
+        }
+
         void EventControllerProcessor::PushEvent(const int key, const int action, const int modes) const
         {
             const auto it = events_.find(key);

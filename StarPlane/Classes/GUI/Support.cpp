@@ -59,7 +59,7 @@ namespace Game
         }
 
 
-        Rectangle *CreateRectangle(const double width, const double height)
+        Node *CreateRectangle(const double width, const double height)
         {
             Rectangle *node = ::new Rectangle(width, height);
 

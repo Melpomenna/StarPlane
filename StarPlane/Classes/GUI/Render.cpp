@@ -68,6 +68,9 @@ namespace Game
             glfwSetWindowTitle(window_, title_);
 
             SetIcon();
+
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         }
 
         void Render::LoadMatrixProjection() const noexcept
@@ -125,15 +128,15 @@ namespace Game
             for (size_t i = 0; i < nodes_.size(); ++i)
             {
                 auto node = nodes_[i];
-                node->Bind();
+                node->Bind(static_cast<unsigned>(i));
 
                 glDrawElements(node->RenderMode(), node->IndexCount(), node->IndexElementType(), nullptr);
+                node->Unbind();
             }
 
             glfwSwapBuffers(window_);
             glfwPollEvents();
             PullError();
-
         }
 
         void Render::ClearErrors() noexcept
@@ -213,9 +216,14 @@ namespace Game
             glfwSetKeyCallback(window_, handler);
         }
 
-        void Render::InitMouseEventHandler(const MouseKeyboardCallbackType handler) const noexcept
+        void Render::InitMouseEventHandler(const MouseCallbackType handler) const noexcept
         {
             glfwSetMouseButtonCallback(window_, handler);
+        }
+
+        void Render::InitMouseMoveEventHandler(const MouseMoveCallbackType handler) const noexcept
+        {
+            glfwSetCursorPosCallback(window_, handler);
         }
 
 
@@ -305,6 +313,7 @@ namespace Game
             }
 
             nodes_.erase(it);
+            delete node;
         }
 
 
@@ -326,19 +335,25 @@ namespace Game
                       });
 
             const auto it =
-                std::remove_if(nodes_.begin(), nodes_.end(), [](const Node *node)
+                std::find_if(nodes_.cbegin(), nodes_.cend(), [](const Node *node)
                 {
                     return node->IsAvailableForDestroy();
                 });
+
+            if (it == nodes_.cend())
+            {
+                return;
+            }
+
             std::vector<Node *> removed{};
             removed.reserve(nodes_.cend() - it);
 
-            for (size_t i = it - nodes_.begin(); i < nodes_.size(); ++i)
+            for (auto i = 0; i <= it - nodes_.cbegin(); ++i)
             {
                 removed.push_back(nodes_[i]);
             }
 
-            nodes_.erase(it, nodes_.cend());
+            nodes_.erase(nodes_.cbegin(), it + 1);
             for (const auto node : removed)
             {
                 ::delete node;
@@ -367,6 +382,16 @@ namespace Game
         double Render::GetHeight() const noexcept
         {
             return height_;
+        }
+
+
+        std::pair<double, double> Render::GetCursorPosition() const noexcept
+        {
+            double x{}, y{};
+
+            glfwGetCursorPos(window_, &x, &y);
+
+            return {x, y};
         }
 
 

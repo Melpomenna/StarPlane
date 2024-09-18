@@ -56,6 +56,8 @@ namespace Game
 
             void PushEvent(int, int, int) const;
 
+            void Update(double);
+
             const IKeyboardProcessorPtrType &Keyboard() const noexcept;
             const IMouseProcessorPtrType &Mouse() const noexcept;
 

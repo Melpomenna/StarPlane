@@ -51,14 +51,20 @@ namespace Game
             indexBuffer_->ChangeRenderType(renderType);
         }
 
-        void Node::Bind() noexcept
+        void Node::Bind(const unsigned slot) noexcept
         {
+            program_->Bind();
+            texture_->Bind(slot);
             vertexBuffer_->Bind();
             colorBuffer_->Bind();
             indexBuffer_->Bind();
-            texture_->Bind();
-            program_->Bind();
         }
+
+        void Node::Unbind() noexcept
+        {
+            texture_->Unbind();
+        }
+
 
         unsigned Node::ElementType() const noexcept
         {
@@ -145,10 +151,9 @@ namespace Game
             }
         }
 
-        void Node::SetPos(double x, double y) noexcept
+        void Node::SetPos(double, double) noexcept
         {
-            (void)x;
-            (void)y;
+
         }
 
 
@@ -219,6 +224,16 @@ namespace Game
         void Node::Destroy() noexcept
         {
             availableForDestroy_ = true;
+        }
+
+        Position2D Node::GetPos() const noexcept
+        {
+            return {0, 0};
+        }
+
+        Size2D Node::Size() const noexcept
+        {
+            return {0, 0};
         }
 
 

@@ -51,13 +51,10 @@ namespace Game
             texture_->StoreBuffer(textureCoords, 8);
         }
 
-        void Rectangle::StoreBuffers(const void *vertex, const size_t vSize, const void *indexBuffer,
-                                     const size_t iSize)
+        void Rectangle::StoreBuffers(const void *, const size_t, const void *,
+                                     const size_t)
         {
-            (void)vertex;
-            (void)vSize;
-            (void)indexBuffer;
-            (void)iSize;
+
         }
 
         void Rectangle::SetPos(const double x, const double y) noexcept
@@ -79,6 +76,20 @@ namespace Game
 
             coords[6] += x;
             coords[7] += y;
+
+            currentPosX_ = coords[0];
+            currentPosY_ = coords[1];
+        }
+
+        Position2D Rectangle::GetPos() const noexcept
+        {
+            return {currentPosX_, currentPosY_};
+        }
+
+
+        Size2D Rectangle::Size() const noexcept
+        {
+            return {width_, height_};
         }
 
 

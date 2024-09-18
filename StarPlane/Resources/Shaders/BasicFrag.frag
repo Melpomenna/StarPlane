@@ -8,6 +8,6 @@ uniform sampler2D u_texture;
 
 void main()
 {   
-    vec4 teture_color = texture(u_texture, t_color); 
+    vec4 teture_color = texture(u_texture, t_color);
     frag_color = teture_color;
 }

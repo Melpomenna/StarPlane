@@ -4,6 +4,7 @@
 #include <Utils/Config.h>
 
 #include <Core/Controller/EventControllerProcessor.h>
+#include <Core/Controller/Mouse/IMouseProcessor.h>
 #include <Core/Actor/ActorSystem.h>
 #include <GUI/Render.h>
 #include <Utils/Cache.h>
@@ -45,6 +46,15 @@ namespace Game
 #endif
             GUI::Render::ResolveRender()->OnResize(width, height);
         }
+
+        void OnCursorMove(GLFWwindow *, const double x, const double y)
+        {
+#if defined(ENABLE_LOG)
+            APP_LOG(("OnMove cursor: (x,y)" + std::to_string(x) + "," + std::to_string(y) + "\n").c_str());
+#endif
+            Core::EventControllerProcessor::ResolveEventController()->Mouse()->OnMove(x, y);
+        }
+
     } // namespace
 
     Application::Application(const unsigned width, const unsigned height, const char *title) :
@@ -61,6 +71,7 @@ namespace Game
         GUI::Render::ResolveRender()->InitKeyboardEventHandler(KeyboardEventControl);
         GUI::Render::ResolveRender()->InitMouseEventHandler(MouseEventControl);
         GUI::Render::ResolveRender()->InitOnResizeCallback(OnResize);
+        GUI::Render::ResolveRender()->InitMouseMoveEventHandler(OnCursorMove);
         timer_ = std::make_shared<Timer>();
     }
 
@@ -72,14 +83,16 @@ namespace Game
 
             auto actorSystem = Core::ActorSystem::ResolveActorSystem();
             const auto render = GUI::Render::ResolveRender();
+            auto eventController = Core::EventControllerProcessor::ResolveEventController();
 
             AppDelegate *delegate = ::new AppDelegate();
 
+            double dt = 1E-6;
             while (render->IsRunning())
             {
-                double dt = 1E-6;
                 timer_->Mark();
                 render->Draw();
+                eventController->Update(dt);
                 actorSystem->Update(dt);
                 dt = timer_->Peek();
                 render->RemoveUnusedNodes();

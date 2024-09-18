@@ -14,6 +14,24 @@ namespace Game
         class Actor : public IKeyboardHandler, public IMouseHandler
         {
         public:
+            struct ObjectWrapper final
+            {
+                friend class Actor;
+                ObjectWrapper() = delete;
+                explicit ObjectWrapper(GUI::Node *);
+
+                void SetTexture(const char *);
+                void Move(double, double);
+                void SetPosition(double, double);
+                GUI::Position2D GetPos() const noexcept;
+                GUI::Size2D WorldSize() const noexcept;
+                GUI::Size2D Size() const noexcept;
+                void SetPositionByWindow(double, double);
+
+            private:
+                GUI::Node *object_;
+            };
+
             Actor();
             ~Actor() override;
 
@@ -28,8 +46,8 @@ namespace Game
             void OnInitActor();
             void OnDestroyActor();
 
-        private:
-            GUI::Node *object_;
+        protected:
+            ObjectWrapper object_;
         };
 
     } // namespace Core

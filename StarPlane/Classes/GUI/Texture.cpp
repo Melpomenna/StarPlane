@@ -29,15 +29,6 @@ namespace Game
             glGenBuffers(1, &id_);
             glBindTexture(GL_TEXTURE_2D, id_);
 
-            const int location = glGetUniformLocation(shaderProgramId_, "u_texture");
-
-            if (location == -1)
-            {
-                return;
-            }
-
-            glUniform1i(location, 0);
-
         }
 
         Texture::Texture(const unsigned shaderProgramId, const unsigned renderType, const char *filePath) :
@@ -59,8 +50,8 @@ namespace Game
             glBindTexture(GL_TEXTURE_2D, id_);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width_, height_, 0,
                          GL_RGBA, GL_UNSIGNED_BYTE, buffer_);
@@ -72,6 +63,16 @@ namespace Game
         {
             glActiveTexture(GL_TEXTURE0 + slot);
             glBindTexture(GL_TEXTURE_2D, id_);
+
+            const int location = glGetUniformLocation(shaderProgramId_, "u_texture");
+
+            if (location == -1)
+            {
+                return;
+            }
+
+            glUniform1i(location, static_cast<GLint>(slot));
+
             textureCoords_->Bind();
         }
 

@@ -47,8 +47,15 @@ namespace Game
 
                 virtual void PushEvent(Key, Action) noexcept = 0;
 
+                virtual void OnMove(double, double) noexcept = 0;
+                virtual void OnStopMove() = 0;
+
                 virtual Key GetKey() const noexcept = 0;
                 virtual Action GetAction() const noexcept = 0;
+
+                virtual void Update(double)
+                {
+                }
             };
         } // namespace Keyboard
     } // namespace Core

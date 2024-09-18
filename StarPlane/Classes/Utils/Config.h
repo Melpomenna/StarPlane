@@ -16,6 +16,7 @@
 #define SHADERS_PATH(__shader_name) AS_STR(SHADERS_PATH_IMPL(__shader_name))
 #define TEXTURE_PATH(__texture_name) AS_STR(TEXTURE_PATH_IMPL(__texture_name))
 
+#define APP_FULL_SIZE
 
 #ifndef APP_FULL_SIZE
 #if defined(_WIN32)

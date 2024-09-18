@@ -142,6 +142,9 @@
     <Filter Include="Файлы заголовков\Game">
       <UniqueIdentifier>{65633a22-6025-4a03-b44f-308a41bdc44f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Textures\Missles">
+      <UniqueIdentifier>{83e1569c-e6de-438d-8cad-0701bccf1ff2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
@@ -205,6 +208,12 @@
       <Filter>Исходные файлы\Core\Actors</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Game\AppDelegate.cpp">
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Player.cpp">
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Missile.cpp">
       <Filter>Исходные файлы\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,6 +308,12 @@
     <ClInclude Include="Classes\Game\AppDelegate.h">
       <Filter>Файлы заголовков\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Game\Player.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Missile.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc">
@@ -311,6 +326,21 @@
     </Image>
     <Image Include="Resources\Textures\Plane.png">
       <Filter>Файлы ресурсов\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Missles\Missle1.png">
+      <Filter>Файлы ресурсов\Textures\Missles</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Missles\Missle2.png">
+      <Filter>Файлы ресурсов\Textures\Missles</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Missles\Missle3.png">
+      <Filter>Файлы ресурсов\Textures\Missles</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Missles\Missle4.png">
+      <Filter>Файлы ресурсов\Textures\Missles</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Missles\Missle5.png">
+      <Filter>Файлы ресурсов\Textures\Missles</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

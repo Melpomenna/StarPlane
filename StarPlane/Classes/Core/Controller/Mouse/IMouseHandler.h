@@ -8,6 +8,7 @@ namespace Game
         inline namespace Mouse
         {
             enum class Key;
+            enum class MouseDirection;
 
             class IMouseHandler
             {
@@ -25,6 +26,16 @@ namespace Game
 
                 virtual void OnRepeat(Key)
                 {
+                }
+
+                virtual void OnMouseMove(double, double, MouseDirection, MouseDirection)
+                {
+
+                }
+
+                virtual void OnMouseStopMove()
+                {
+
                 }
 
                 /**
