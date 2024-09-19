@@ -12,6 +12,8 @@
 #include <string>
 #include <Utils/Config.h>
 
+#include <Game/Config.h>
+
 namespace Game
 {
     Missile::Missile(const double speed, const double width, const double height, const double posX,
@@ -22,6 +24,8 @@ namespace Game
         SetObject(GUI::CreateRectangle(width, height));
         object_.SetTexture(TEXTURE_PATH(Missles/Missle1.png));
         object_.SetPosition(posX, posY);
+        SetId(PLAYER_MISSLE_ID);
+        EnableCollision();
     }
 
 
@@ -32,7 +36,7 @@ namespace Game
 
         time_ += dt;
 
-        if (time_ >= timeToNextFrame_)
+        if (time_ >= timeToNextFrame_ && textureIdx_ != 6)
         {
             object_.Resize(object_.Size() + 20);
             time_ = 0;
@@ -40,21 +44,18 @@ namespace Game
                     textureIdx_) +
                 ".png";
             object_.SetTexture(textureName.c_str());
-            if (textureIdx_ != 5)
-            {
-                textureIdx_++;
-            }
+            textureIdx_++;
         }
 
-        const auto nextPosY = speed_ * dt + pos.y;
+        const auto nextPosX = speed_ * dt + pos.x;
 
-        if (std::fabs(nextPosY) >= worldSize.height)
+        if (std::fabs(nextPosX) - object_.Size().width >= worldSize.width)
         {
             Destroy();
             return;
         }
 
-        object_.Move(0, speed_ * dt);
+        object_.Move(speed_ * dt, 0);
     }
 
 }

@@ -145,6 +145,15 @@
     <Filter Include="Файлы ресурсов\Textures\Missles">
       <UniqueIdentifier>{83e1569c-e6de-438d-8cad-0701bccf1ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Game\Enemies">
+      <UniqueIdentifier>{aa6a926b-a711-45ff-817d-b2693c557462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game\Enemies">
+      <UniqueIdentifier>{15c29d2f-0927-4514-9c4e-b7d9adb68f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Textures\Enemies">
+      <UniqueIdentifier>{f82ad585-1344-42cc-8bc4-c1487cdd9ee1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
@@ -215,6 +224,21 @@
     </ClCompile>
     <ClCompile Include="Classes\Game\Missile.cpp">
       <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\EnemyEmiter.cpp">
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Enemies\BirdEnemy.cpp">
+      <Filter>Исходные файлы\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Enemies\ScorerEnemy.cpp">
+      <Filter>Исходные файлы\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Enemies\FightJetEnemy.cpp">
+      <Filter>Исходные файлы\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Enemies\EnemyMissile.cpp">
+      <Filter>Исходные файлы\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +338,27 @@
     <ClInclude Include="Classes\Game\Missile.h">
       <Filter>Файлы заголовков\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Game\IEmiter.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\EnemyEmiter.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Enemies\BirdEnemy.h">
+      <Filter>Файлы заголовков\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Enemies\ScorerEnemy.h">
+      <Filter>Файлы заголовков\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Enemies\FightJetEnemy.h">
+      <Filter>Файлы заголовков\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Config.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Enemies\EnemyMissile.h">
+      <Filter>Файлы заголовков\Game\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc">
@@ -341,6 +386,18 @@
     </Image>
     <Image Include="Resources\Textures\Missles\Missle5.png">
       <Filter>Файлы ресурсов\Textures\Missles</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Enemies\Bird.png">
+      <Filter>Файлы ресурсов\Textures\Enemies</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Enemies\FighterJet.png">
+      <Filter>Файлы ресурсов\Textures\Enemies</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Enemies\Scorer.png">
+      <Filter>Файлы ресурсов\Textures\Enemies</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Enemies\Missle.png">
+      <Filter>Файлы ресурсов\Textures\Enemies</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,10 @@ namespace Game
 
             void StoreBuffer(const void *, size_t) noexcept;
 
+			void Rotate(double);
+
+			double Angle() const noexcept;
+
         private:
             void Read(const char *);
 
@@ -36,6 +40,7 @@ namespace Game
             int width_, height_;
             unsigned id_;
             unsigned shaderProgramId_;
+            double angle_ = 0;
         };
 
     } // namespace GUI

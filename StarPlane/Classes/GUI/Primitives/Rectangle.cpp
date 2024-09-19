@@ -25,10 +25,10 @@ namespace Game
             };
 
             const double noBlendColor[] = {
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1
             };
 
             const double basePos[] = {

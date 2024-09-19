@@ -264,18 +264,13 @@ namespace Game
             {
                 return;
             }
-            std::queue<Node *> removed{};
 
             for (const auto node : nodes_)
             {
-                removed.push(node);
+                delete node;
             }
+
             nodes_.clear();
-            while (!removed.empty())
-            {
-                ::delete removed.front();
-                removed.pop();
-            }
 
             glfwDestroyWindow(window_);
             window_ = nullptr;
@@ -306,7 +301,7 @@ namespace Game
                 return;
             }
 
-            const auto it = std::remove(nodes_.begin(), nodes_.end(), node);
+            const auto it = std::find(nodes_.cbegin(), nodes_.cend(), node);
             if (it == nodes_.cend())
             {
                 return;
@@ -328,35 +323,23 @@ namespace Game
         void Render::RemoveUnusedNodes()
         {
 
-            std::sort(nodes_.begin(), nodes_.end(),
-                      [](const Node *lhs, Node *)
-                      {
-                          return lhs->IsAvailableForDestroy();
-                      });
+            std::vector<Node *> removed{nodes_};
 
-            const auto it =
-                std::find_if(nodes_.cbegin(), nodes_.cend(), [](const Node *node)
+            for (size_t i = 0; i < removed.size(); ++i)
+            {
+                if (removed[i]->IsAvailableForDestroy())
                 {
-                    return node->IsAvailableForDestroy();
-                });
-
-            if (it == nodes_.cend())
-            {
-                return;
+                    nodes_.erase(std::find(nodes_.cbegin(), nodes_.cend(), removed[i]));
+                }
             }
 
-            std::vector<Node *> removed{};
-            removed.reserve(nodes_.cend() - it);
 
-            for (auto i = 0; i <= it - nodes_.cbegin(); ++i)
-            {
-                removed.push_back(nodes_[i]);
-            }
-
-            nodes_.erase(nodes_.cbegin(), it + 1);
             for (const auto node : removed)
             {
-                ::delete node;
+                if (node->IsAvailableForDestroy())
+                {
+                    delete node;
+                }
             }
         }
 

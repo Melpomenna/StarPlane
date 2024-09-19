@@ -15,7 +15,7 @@ namespace Game
         void Update(double) override;
 
     private:
-        static constexpr double timeToNextFrame_ = 0.5;
+        static constexpr double timeToNextFrame_ = 0.25;
         int textureIdx_;
         double speed_;
         double time_;

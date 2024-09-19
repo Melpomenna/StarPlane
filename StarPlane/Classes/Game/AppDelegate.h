@@ -9,7 +9,7 @@ namespace Game
     {
     public:
         AppDelegate();
-        ~AppDelegate() override = default;
+        ~AppDelegate() override;
 
         void Update(double) override;
 

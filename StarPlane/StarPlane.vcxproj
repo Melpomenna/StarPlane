@@ -155,6 +155,11 @@
     <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp" />
     <ClCompile Include="Classes\Core\Controller\Utils\Utils.cpp" />
     <ClCompile Include="Classes\Game\AppDelegate.cpp" />
+    <ClCompile Include="Classes\Game\Enemies\BirdEnemy.cpp" />
+    <ClCompile Include="Classes\Game\Enemies\EnemyMissile.cpp" />
+    <ClCompile Include="Classes\Game\Enemies\FightJetEnemy.cpp" />
+    <ClCompile Include="Classes\Game\Enemies\ScorerEnemy.cpp" />
+    <ClCompile Include="Classes\Game\EnemyEmiter.cpp" />
     <ClCompile Include="Classes\Game\Missile.cpp" />
     <ClCompile Include="Classes\Game\Player.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp" />
@@ -186,6 +191,13 @@
     <ClInclude Include="Classes\Core\Controller\Mouse\MouseProcessor.h" />
     <ClInclude Include="Classes\Core\Controller\Utils\Utils.h" />
     <ClInclude Include="Classes\Game\AppDelegate.h" />
+    <ClInclude Include="Classes\Game\Config.h" />
+    <ClInclude Include="Classes\Game\Enemies\BirdEnemy.h" />
+    <ClInclude Include="Classes\Game\Enemies\EnemyMissile.h" />
+    <ClInclude Include="Classes\Game\Enemies\FightJetEnemy.h" />
+    <ClInclude Include="Classes\Game\Enemies\ScorerEnemy.h" />
+    <ClInclude Include="Classes\Game\EnemyEmiter.h" />
+    <ClInclude Include="Classes\Game\IEmiter.h" />
     <ClInclude Include="Classes\Game\Missile.h" />
     <ClInclude Include="Classes\Game\Player.h" />
     <ClInclude Include="Classes\GUI\Buffer.h" />
@@ -221,6 +233,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\APP_ICON.ico" />
+    <Image Include="Resources\Textures\Enemies\Bird.png" />
+    <Image Include="Resources\Textures\Enemies\FighterJet.png" />
+    <Image Include="Resources\Textures\Enemies\Missle.png" />
+    <Image Include="Resources\Textures\Enemies\Scorer.png" />
     <Image Include="Resources\Textures\Missles\Missle1.png" />
     <Image Include="Resources\Textures\Missles\Missle2.png" />
     <Image Include="Resources\Textures\Missles\Missle3.png" />

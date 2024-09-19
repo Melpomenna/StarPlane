@@ -61,6 +61,7 @@ namespace Game
             virtual void SetProjection(glm::mat4x4 &) noexcept;
             virtual void LoadTexture(const char *) noexcept;
             virtual void StoreTextureBuffer(const void *, size_t) noexcept;
+            virtual void Rotate(double);
 
             std::shared_ptr<Texture> &GetTexture() noexcept;
             const std::shared_ptr<Texture> &GetTexture() const noexcept;

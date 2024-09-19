@@ -85,7 +85,7 @@ namespace Game
             const auto render = GUI::Render::ResolveRender();
             auto eventController = Core::EventControllerProcessor::ResolveEventController();
 
-            AppDelegate *delegate = ::new AppDelegate();
+            AppDelegate *delegate = new AppDelegate();
 
             double dt = 1E-6;
             while (render->IsRunning())
@@ -95,6 +95,8 @@ namespace Game
                 eventController->Update(dt);
                 actorSystem->Update(dt);
                 dt = timer_->Peek();
+                //actorSystem->CollisionDetection();
+                actorSystem->RemoveDestroyedActors();
                 render->RemoveUnusedNodes();
             }
             if (render->HasException())

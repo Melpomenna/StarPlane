@@ -12,6 +12,7 @@
 #include <Utils/Config.h>
 
 #include <Game/Missile.h>
+#include <Game/Config.h>
 
 namespace Game
 {
@@ -25,6 +26,9 @@ namespace Game
          * setting the player's position 1/3 of the screen vertically
          */
         object_.SetPositionByWindow(-0.3, 0);
+        object_.Rotate(90);
+        SetId(PLAYER_ID);
+        EnableCollision();
     }
 
     void Player::OnMouseMove(double, double, Core::MouseDirection, Core::MouseDirection directionY)
@@ -48,7 +52,8 @@ namespace Game
         constexpr double width = 50;
         constexpr double height = 50;
         auto pos = object_.GetPos();
-        Actor *missile = new Missile(speed, width, height, pos.x + object_.Size().width / 3, pos.y + height);
+        Actor *missile = new Missile(speed, width, height, pos.x + object_.Size().width, pos.y - height / 2 - 15);
+        missile->Object().Rotate(object_.Angle());
     }
 
     void Player::OnMouseStopMove()
@@ -77,6 +82,20 @@ namespace Game
 
             object_.Move(0, direction_ * speed_ * dt);
         }
+    }
+
+    void Player::OnEnter(Actor *actor)
+    {
+        if (actor->Id() != PLAYER_MISSLE_ID)
+        {
+
+        }
+    }
+
+
+    double Player::Speed() const noexcept
+    {
+        return speed_;
     }
 
 

@@ -35,9 +35,9 @@ namespace Game
 
         void ActorSystem::Update(const double dt)
         {
-            for (const auto &actor : actors_)
+            for (size_t i = 0; i < actors_.size(); ++i)
             {
-                actor->Update(dt);
+                actors_[i]->Update(dt);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Game
                 return;
             }
 
-            const auto it = std::remove(actors_.begin(), actors_.end(), actor);
+            const auto it = std::find(actors_.cbegin(), actors_.cend(), actor);
 
             if (it == actors_.cend())
             {
@@ -78,6 +78,72 @@ namespace Game
 
             actors_.erase(it);
             delete actor;
+        }
+
+        void ActorSystem::RemoveDestroyedActors() noexcept
+        {
+            std::vector<Actor *> removed{actors_};
+
+            for (size_t i = 0; i < removed.size(); ++i)
+            {
+                if (removed[i]->IsAvailableForDestoy())
+                {
+                    actors_.erase(std::find(actors_.cbegin(), actors_.cend(), removed[i]));
+                }
+
+            }
+
+            for (const auto actor : removed)
+            {
+                if (actor->IsAvailableForDestoy())
+                {
+                    EventControllerProcessor::ResolveEventController()->UnsubscribeFromKeyboard(actor);
+                    EventControllerProcessor::ResolveEventController()->UnsubscribeFromMouse(actor);
+                    delete actor;
+                }
+            }
+        }
+
+        void ActorSystem::CollisionDetection() noexcept
+        {
+
+            /**
+             *O(2) algorithm
+             */
+
+            /*for (const auto in : actors_)
+            {
+                if (!in->IsCollisionEnabled())
+                {
+                    continue;
+                }
+
+                for (const auto actor : actors_)
+                {
+                    if (in != actor && in->Object() && actor->Object() && !in->IsAvailableForDestoy() && !actor->
+                        IsAvailableForDestoy() && actor->IsCollisionEnabled())
+                    {
+                        const auto inObject = in->Object();
+                        const auto otherObject = actor->Object();
+
+                        const auto pos = inObject.GetPos();
+                        const auto size = inObject.Size();
+
+                        const auto otherPos = otherObject.GetPos();
+                        const auto otherSize = otherObject.Size();
+
+                        const bool condition = pos.x + size.width < otherPos.x ||
+                            pos.x > otherPos.x + otherSize.width || pos.y + size.height < otherPos.y ||
+                            pos.y > otherPos.y + otherSize.height;
+
+                        if (!condition)
+                        {
+                            in->OnEnter(actor);
+                            actor->OnEnter(in);
+                        }
+                    }
+                }
+            }*/
         }
 
 

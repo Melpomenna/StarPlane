@@ -27,7 +27,7 @@ namespace Game
 
         Node::~Node()
         {
-            Render::ResolveRender()->RemoveNode(this);
+            Destroy();
         }
 
 
@@ -203,6 +203,11 @@ namespace Game
         void Node::StoreTextureBuffer(const void *buffer, const size_t size) noexcept
         {
             texture_->StoreBuffer(buffer, size);
+        }
+
+        void Node::Rotate(const double angle)
+        {
+            texture_->Rotate(angle);
         }
 
 

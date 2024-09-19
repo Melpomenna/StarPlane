@@ -3,6 +3,8 @@
 #include <Core/Actor/ActorSystem.h>
 #include <GUI/Render.h>
 
+#include "GUI/Texture.h"
+
 namespace Game
 {
     namespace Core
@@ -10,6 +12,7 @@ namespace Game
         Actor::Actor() :
             object_(nullptr)
         {
+            DisableCollision();
             OnInitActor();
         }
 
@@ -26,6 +29,7 @@ namespace Game
 
         void Actor::OnInitActor()
         {
+            isAvailableForDestroy_ = false;
             ActorSystem::ResolveActorSystem()->RegisterActor(this);
         }
 
@@ -35,15 +39,29 @@ namespace Game
             if (object_.object_)
             {
                 object_.object_->Destroy();
-                object_.object_ = nullptr;
             }
-            ActorSystem::ResolveActorSystem()->RemoveActor(this);
+            isAvailableForDestroy_ = true;
+        }
+
+        bool Actor::IsAvailableForDestoy() const noexcept
+        {
+            return isAvailableForDestroy_;
+        }
+
+        unsigned Actor::Id() const noexcept
+        {
+            return id_;
+        }
+
+        void Actor::SetId(const unsigned id) noexcept
+        {
+            id_ = id;
         }
 
 
-        GUI::Node *Actor::Object() const noexcept
+        Actor::ObjectWrapper Actor::Object() const noexcept
         {
-            return object_.object_;
+            return object_;
         }
 
         void Actor::SetObject(GUI::Node *object) noexcept
@@ -56,12 +74,28 @@ namespace Game
             object_.object_ = object;
         }
 
+        void Actor::EnableCollision()
+        {
+            isCollisionEnabled_ = true;
+        }
+
+
+        void Actor::DisableCollision()
+        {
+            isCollisionEnabled_ = false;
+        }
+
+        bool Actor::IsCollisionEnabled() const noexcept
+        {
+            return isCollisionEnabled_;
+        }
+
+
         Actor::ObjectWrapper::ObjectWrapper(GUI::Node *node) :
             object_(node)
         {
 
         }
-
 
         void Actor::ObjectWrapper::Move(const double dx, const double dy)
         {
@@ -121,7 +155,7 @@ namespace Game
             return object_->Size();
         }
 
-		void Actor::ObjectWrapper::Resize(GUI::Size2D size) noexcept
+        void Actor::ObjectWrapper::Resize(GUI::Size2D size) noexcept
         {
             if (object_)
             {
@@ -129,6 +163,31 @@ namespace Game
             }
         }
 
+        void Actor::ObjectWrapper::FillColor(const float r, const float g, const float b, const float a)
+        {
+            if (object_)
+            {
+                object_->FillColor(r, g, b, a);
+            }
+        }
+
+        void Actor::ObjectWrapper::Rotate(const double angle) noexcept
+        {
+            if (object_)
+            {
+                object_->Rotate(angle);
+            }
+        }
+
+        double Actor::ObjectWrapper::Angle() const noexcept
+        {
+            return object_->GetTexture()->Angle();
+        }
+
+        Actor::ObjectWrapper::operator bool() const noexcept
+        {
+            return object_;
+        }
 
 
     }

@@ -24,6 +24,9 @@ namespace Game
             void RemoveActor(Actor *);
             void RegisterActor(Actor *);
 
+			void RemoveDestroyedActors() noexcept;
+            void CollisionDetection() noexcept;
+
         private:
             static void Destroy();
             static void Init();

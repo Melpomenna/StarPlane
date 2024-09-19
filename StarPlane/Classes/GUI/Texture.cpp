@@ -10,6 +10,12 @@
 
 #include <GUI/Buffers/VertexBuffer.h>
 
+#include <cmath>
+
+#ifndef M_PI
+#define M_PI 3.1415926535
+#endif
+
 namespace Game
 {
     namespace GUI
@@ -113,6 +119,41 @@ namespace Game
         void Texture::StoreBuffer(const void *ptr, const size_t size) noexcept
         {
             textureCoords_->MoveBuffer(ptr, size);
+        }
+
+        double Texture::Angle() const noexcept
+        {
+            return angle_;
+        }
+
+        void Texture::Rotate(const double angle)
+        {
+            double *data = textureCoords_->CastToArray<double>();
+
+            if (!data)
+            {
+                return;
+            }
+
+            const size_t size = textureCoords_->Size();
+
+            const double radians = angle * M_PI / 180.0;
+            const double cosA = cos(radians);
+            const double sinA = sin(radians);
+
+            for (size_t i = 0; i + 2 <= size; i += 2)
+            {
+                constexpr double cx = 0.5;
+                constexpr double cy = 0.5;
+                const double x = data[i];
+                const double y = data[i + 1];
+
+                data[i] = cx + (x - cx) * cosA - (y - cy) * sinA;
+                data[i + 1] = cy + (x - cx) * sinA + (y - cy) * cosA;
+            }
+
+            angle_ += angle;
+
         }
 
 

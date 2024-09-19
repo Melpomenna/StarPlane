@@ -28,6 +28,11 @@ namespace Game
                 GUI::Size2D Size() const noexcept;
                 void Resize(GUI::Size2D) noexcept;
                 void SetPositionByWindow(double, double);
+                void FillColor(float, float, float, float);
+                void Rotate(double) noexcept;
+                double Angle() const noexcept;
+
+				operator bool() const noexcept;
 
             private:
                 GUI::Node *object_;
@@ -41,11 +46,35 @@ namespace Game
             virtual void Update(double) = 0;
 
             virtual void SetObject(GUI::Node *) noexcept;
-            virtual GUI::Node *Object() const noexcept;
+            virtual ObjectWrapper Object() const noexcept;
+
+            bool IsAvailableForDestoy() const noexcept;
+
+            void SetId(unsigned) noexcept;
+            unsigned Id() const noexcept;
+
+            void EnableCollision();
+            void DisableCollision();
+
+            virtual void OnEnter(Actor *)
+            {
+            }
+
+            virtual void OnExit(Actor *)
+            {
+            }
+
+            bool IsCollisionEnabled() const noexcept;
 
         private:
             void OnInitActor();
             void OnDestroyActor();
+
+            bool isAvailableForDestroy_;
+
+            unsigned id_;
+
+            bool isCollisionEnabled_;
 
         protected:
             ObjectWrapper object_;

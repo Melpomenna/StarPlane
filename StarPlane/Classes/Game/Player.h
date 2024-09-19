@@ -17,6 +17,10 @@ namespace Game
         void OnMouseStopMove() override;
 		bool FindBindings(Core::Mouse::Key, const int param) override;
 
+		double Speed() const noexcept;
+
+		void OnEnter(Actor *) override;
+
     private:
         bool isMove_;
         double speed_;

@@ -1,0 +1,9 @@
+#pragma once
+
+#define PLAYER_ID 1
+#define PLAYER_MISSLE_ID 2
+#define ENEMY_BIRD_ID 3
+#define ENEMY_SCORER_ID 4
+#define ENEMY_FIGHTJET_ID 5
+#define ENEMY_FIGHTJET_MISSLE_ID 6
+#define ENEMY_METEOR_ID 7

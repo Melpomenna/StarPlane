@@ -204,7 +204,7 @@ namespace Game
                 {
                     return;
                 }
-                const auto it = std::remove(handlers_.begin(), handlers_.end(), handler);
+                const auto it = std::find(handlers_.cbegin(), handlers_.cend(), handler);
                 if (it == handlers_.cend())
                 {
                     return;
