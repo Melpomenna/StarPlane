@@ -5,12 +5,11 @@
 #include <fstream>
 
 #include <GUI/Primitives/Rectangle.h>
+#include <GUI/Primitives/Text.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GUI/Render.h>
-
-#include <GUI/Texture.h>
 
 
 namespace Game
@@ -62,6 +61,25 @@ namespace Game
         Node *CreateRectangle(const double width, const double height)
         {
             Rectangle *node = ::new Rectangle(width, height);
+
+            const auto render = Render::ResolveRender();
+
+            glm::mat4x4 model = glm::mat4(1.0f);
+            glm::mat4x4 projection =
+                glm::ortho(-render->GetWidth(), render->GetWidth(), -render->GetHeight(), render->GetHeight());
+
+            node->SetModel(model);
+            node->SetProjection(projection);
+
+            return node;
+        }
+
+        Node *CreateText(std::string &&fontName, std::string &&text, const unsigned int fontSize)
+        {
+            Text *node = ::new Text();
+            node->SetFont(std::move(fontName));
+            node->SetString(std::move(text));
+            node->SetFontSize(fontSize);
 
             const auto render = Render::ResolveRender();
 

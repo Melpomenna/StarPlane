@@ -14,9 +14,16 @@ namespace Game
         }
 
 
+        ActorSystem::ActorSystem()
+        {
+            actors_.reserve(RESERVE_ACTORS_SIZE);
+        }
+
         void ActorSystem::Destroy()
         {
             ::delete ACTOR_SYSTEM;
+
+
             ACTOR_SYSTEM = nullptr;
         }
 
@@ -35,15 +42,16 @@ namespace Game
 
         void ActorSystem::Update(const double dt)
         {
-            for (size_t i = 0; i < actors_.size(); ++i)
+
+            for (auto actor : actors_)
             {
-                actors_[i]->Update(dt);
+                actor->Update(dt);
             }
         }
 
         void ActorSystem::RegisterActor(Actor *actor)
         {
-            if (!actor)
+            if (actor == nullptr)
             {
                 return;
             }
@@ -55,115 +63,97 @@ namespace Game
 
             EventControllerProcessor::ResolveEventController()->SubscribeOnKeyboard(actor);
             EventControllerProcessor::ResolveEventController()->SubscribeOnMouse(actor);
+
             actors_.push_back(actor);
         }
 
 
         void ActorSystem::RemoveActor(Actor *actor)
         {
-            if (!actor || actors_.empty())
+            if (actor == nullptr)
             {
                 return;
             }
 
-            const auto it = std::find(actors_.cbegin(), actors_.cend(), actor);
-
-            if (it == actors_.cend())
+            auto pos = std::find(actors_.cbegin(), actors_.cend(), actor);
+            if (pos == actors_.cend())
             {
                 return;
             }
 
             EventControllerProcessor::ResolveEventController()->UnsubscribeFromKeyboard(actor);
             EventControllerProcessor::ResolveEventController()->UnsubscribeFromMouse(actor);
-
-            actors_.erase(it);
-            delete actor;
+            actors_.erase(pos);
         }
 
         void ActorSystem::RemoveDestroyedActors() noexcept
         {
-            std::vector<Actor *> removed{actors_};
 
-            for (size_t i = 0; i < removed.size(); ++i)
+            std::queue<Actor *> removed{};
+
+            for (size_t i = 0; i < actors_.size(); ++i)
             {
-                if (removed[i]->IsAvailableForDestoy())
+                if (actors_[i]->IsAvailableForDestroy())
                 {
-                    actors_.erase(std::find(actors_.cbegin(), actors_.cend(), removed[i]));
+                    removed.push(actors_[i]);
                 }
-
             }
 
-            for (const auto actor : removed)
+            while (!removed.empty())
             {
-                if (actor->IsAvailableForDestoy())
-                {
-                    EventControllerProcessor::ResolveEventController()->UnsubscribeFromKeyboard(actor);
-                    EventControllerProcessor::ResolveEventController()->UnsubscribeFromMouse(actor);
-                    delete actor;
-                }
+                RemoveActor(removed.front());
+                removed.pop();
             }
         }
 
         void ActorSystem::CollisionDetection() noexcept
         {
-
-            /**
-             *O(2) algorithm
-             */
-
-            /*for (const auto in : actors_)
+            std::sort(actors_.begin(), actors_.end(), [](Actor *lhs, Actor *rhs)
             {
-                if (!in->IsCollisionEnabled())
+                return lhs->Object().GetPos().x < rhs->Object().GetPos().x;
+            });
+            for (auto i = 0UL; i < actors_.size(); ++i)
+            {
+                for (auto j = i + 1; j < actors_.size() && actors_[i]->IsCollide(actors_[j]); ++j)
                 {
-                    continue;
-                }
-
-                for (const auto actor : actors_)
-                {
-                    if (in != actor && in->Object() && actor->Object() && !in->IsAvailableForDestoy() && !actor->
-                        IsAvailableForDestoy() && actor->IsCollisionEnabled())
+                    if (i == j)
                     {
-                        const auto inObject = in->Object();
-                        const auto otherObject = actor->Object();
-
-                        const auto pos = inObject.GetPos();
-                        const auto size = inObject.Size();
-
-                        const auto otherPos = otherObject.GetPos();
-                        const auto otherSize = otherObject.Size();
-
-                        const bool condition = pos.x + size.width < otherPos.x ||
-                            pos.x > otherPos.x + otherSize.width || pos.y + size.height < otherPos.y ||
-                            pos.y > otherPos.y + otherSize.height;
-
-                        if (!condition)
-                        {
-                            in->OnEnter(actor);
-                            actor->OnEnter(in);
-                        }
+                        continue;
                     }
+
+                    actors_[i]->OnEnter(actors_[j]);
                 }
-            }*/
+            }
+        }
+
+        void ActorSystem::OnResize(const size_t width, const size_t height) noexcept
+        {
+            // need for Resize storage
+        }
+
+        Actor *ActorSystem::FindById(const unsigned id) const noexcept
+        {
+            for (auto actor : actors_)
+            {
+                if (actor->Id() == id)
+                {
+                    return actor;
+                }
+            }
+
+            return nullptr;
         }
 
 
         ActorSystem::~ActorSystem()
         {
-            std::queue<Actor *> removed{};
             for (auto actor : actors_)
             {
-                removed.push(actor);
+                actor->Destroy();
             }
-
-            actors_.clear();
-
-            while (!removed.empty())
-            {
-                ::delete removed.front();
-                removed.pop();
-            }
+            RemoveDestroyedActors();
         }
 
 
-    }
-}
+    } // namespace Core
+} // namespace Game

@@ -22,6 +22,9 @@ dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
 
+[**/ThirdParty*.cpp]
+dotnet_diagnostic.CAxxxx.severity = none
+
 # ReSharper properties
 resharper_show_autodetect_configure_formatting_tip = false
 

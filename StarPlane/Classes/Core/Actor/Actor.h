@@ -1,10 +1,12 @@
 #pragma once
 
-#include <GUI/Node.h>
-#include <Core/Controller/Mouse/IMouseHandler.h>
 #include <Core/Controller/Keyboard/IKeyboardHandler.h>
+#include <Core/Controller/Mouse/IMouseHandler.h>
+#include <GUI/Node.h>
 
-#define A_ACTOR public Game::Core::Actor
+#define A_ACTOR                                                                                                        \
+public                                                                                                                 \
+    Game::Core::Actor
 
 namespace Game
 {
@@ -32,7 +34,7 @@ namespace Game
                 void Rotate(double) noexcept;
                 double Angle() const noexcept;
 
-				operator bool() const noexcept;
+                operator bool() const noexcept;
 
             private:
                 GUI::Node *object_;
@@ -45,10 +47,11 @@ namespace Game
 
             virtual void Update(double) = 0;
 
-            virtual void SetObject(GUI::Node *) noexcept;
-            virtual ObjectWrapper Object() const noexcept;
+            void SetObject(GUI::Node *) noexcept;
+            ObjectWrapper Object() const noexcept;
 
-            bool IsAvailableForDestoy() const noexcept;
+            bool IsAvailableForDestroy() const noexcept;
+            bool IsCollide(Actor *) const noexcept;
 
             void SetId(unsigned) noexcept;
             unsigned Id() const noexcept;

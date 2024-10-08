@@ -14,10 +14,13 @@
 
 #include <Game/Config.h>
 
+#include <Game/Player.h>
+
 namespace Game
 {
-    Missile::Missile(const double speed, const double width, const double height, const double posX,
+    Missile::Missile(Player *player, const double speed, const double width, const double height, const double posX,
                      const double posY) :
+        player_(player),
         textureIdx_(2),
         speed_(speed), time_()
     {
@@ -57,5 +60,16 @@ namespace Game
 
         object_.Move(speed_ * dt, 0);
     }
+
+    void Missile::OnEnter(Actor *actor)
+    {
+        if (actor->Id() == ENEMY_BIRD_ID || actor->Id() == ENEMY_FIGHTJET_ID || actor->Id() == ENEMY_SCORER_ID)
+        {
+            actor->Destroy();
+            Destroy();
+            player_->UpdateScore();
+        }
+    }
+
 
 }

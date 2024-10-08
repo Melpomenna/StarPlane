@@ -14,9 +14,9 @@
 
 namespace Game
 {
-    ScorerEnemy::ScorerEnemy(Actor *instance, const double width, const double height, const double x, const double y,
+    ScorerEnemy::ScorerEnemy(const double width, const double height, const double x, const double y,
                              const double speed) :
-        playerInstance_(instance), speed_(speed)
+        speed_(speed)
     {
         SetObject(GUI::CreateRectangle(width, height));
         object_.SetTexture(TEXTURE_PATH(Enemies/Scorer.png));
@@ -33,7 +33,6 @@ namespace Game
         if (posX + object_.Size().width <= -object_.WorldSize().width)
         {
             Destroy();
-            return;
         }
     }
 

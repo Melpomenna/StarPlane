@@ -43,7 +43,27 @@ namespace Game
             isAvailableForDestroy_ = true;
         }
 
-        bool Actor::IsAvailableForDestoy() const noexcept
+        bool Actor::IsCollide(Actor *other) const noexcept
+        {
+            if (!IsCollisionEnabled() || IsAvailableForDestroy() || other->IsAvailableForDestroy() ||
+                !other->
+                IsCollisionEnabled())
+            {
+                return false;
+            }
+
+            auto pos = object_.GetPos();
+            auto rect = object_.Size();
+
+            auto otherPos = other->Object().GetPos();
+            auto otherRect = other->Object().Size();
+
+            return !(pos.x + rect.width < otherPos.x || pos.x > otherPos.x + otherRect.width ||
+                pos.y + rect.height < otherPos.y || pos.y > otherPos.y + otherRect.height);
+        }
+
+
+        bool Actor::IsAvailableForDestroy() const noexcept
         {
             return isAvailableForDestroy_;
         }

@@ -154,6 +154,15 @@
     <Filter Include="Файлы ресурсов\Textures\Enemies">
       <UniqueIdentifier>{f82ad585-1344-42cc-8bc4-c1487cdd9ee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Fonts">
+      <UniqueIdentifier>{36e32f53-ab53-476d-8e62-3a628ae5ba62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GUI\Textures\Custom">
+      <UniqueIdentifier>{5bcf61fb-9a9d-430c-a2e1-e86837348ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\GUI\Textures\Custom">
+      <UniqueIdentifier>{09e02355-21df-4668-8514-6fec60b909d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp">
@@ -167,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="Classes\GUI\ShaderProgram.cpp">
       <Filter>Исходные файлы\GUI\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GUI\Support.cpp">
-      <Filter>Исходные файлы\GUI\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Application.cpp">
       <Filter>Исходные файлы\Application</Filter>
@@ -238,6 +244,24 @@
       <Filter>Исходные файлы\Game\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Game\Enemies\EnemyMissile.cpp">
+      <Filter>Исходные файлы\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Support.cpp">
+      <Filter>Исходные файлы\GUI\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Primitives\Text.cpp">
+      <Filter>Исходные файлы\GUI\Nodes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Textures\TextTexture.cpp">
+      <Filter>Исходные файлы\GUI\Textures\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Buffers\TextVAOVBOBuffer.cpp">
+      <Filter>Исходные файлы\GUI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GUI\Buffers\TextColorBuffer.cpp">
+      <Filter>Исходные файлы\GUI\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Game\Enemies\Asteroid.cpp">
       <Filter>Исходные файлы\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
@@ -359,6 +383,21 @@
     <ClInclude Include="Classes\Game\Enemies\EnemyMissile.h">
       <Filter>Файлы заголовков\Game\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\GUI\Primitives\Text.h">
+      <Filter>Файлы заголовков\GUI\Nodes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Textures\TextTexture.h">
+      <Filter>Файлы заголовков\GUI\Textures\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Buffers\TextVAOVBOBuffer.h">
+      <Filter>Файлы заголовков\GUI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GUI\Buffers\TextColorBuffer.h">
+      <Filter>Файлы заголовков\GUI\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Game\Enemies\Asteroid.h">
+      <Filter>Файлы заголовков\Game\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StarPlane.rc">
@@ -399,6 +438,12 @@
     <Image Include="Resources\Textures\Enemies\Missle.png">
       <Filter>Файлы ресурсов\Textures\Enemies</Filter>
     </Image>
+    <Image Include="Resources\Textures\SpaceBG.png">
+      <Filter>Файлы ресурсов\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Enemies\Asteroid.png">
+      <Filter>Файлы ресурсов\Textures\Enemies</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\Lib\x64\gl3w.lib">
@@ -428,6 +473,9 @@
     <Library Include="ThirdParty\Lib\x64\OpenGL32.Lib">
       <Filter>ThirdParty\Lib</Filter>
     </Library>
+    <Library Include="ThirdParty\Lib\x64\freetype.lib">
+      <Filter>ThirdParty\Lib</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\Lib\x64\glew32.dll">
@@ -439,6 +487,9 @@
     <CopyFileToFolders Include="ThirdParty\Lib\x64\glfw3.dll">
       <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\freetype.dll">
+      <Filter>ThirdParty\Lib</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\BasicFrag.frag">
@@ -447,5 +498,20 @@
     <None Include="Resources\Shaders\BasicVertex.vert">
       <Filter>Файлы ресурсов\Shaders</Filter>
     </None>
+    <None Include="packages.config" />
+    <None Include="Resources\Shaders\TextVertex.vert">
+      <Filter>Файлы ресурсов\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\TextFragment.frag">
+      <Filter>Файлы ресурсов\Shaders</Filter>
+    </None>
+    <None Include="ThirdParty\Lib\x64\freetype.dll.recipe">
+      <Filter>ThirdParty\Lib</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Silver.ttf">
+      <Filter>Файлы ресурсов\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

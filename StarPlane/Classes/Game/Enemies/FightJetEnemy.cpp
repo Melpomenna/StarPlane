@@ -14,10 +14,12 @@
 
 #include <Game/Enemies/EnemyMissile.h>
 
+#include <Core/Actor/ActorSystem.h>
+
 namespace Game
 {
     FightJetEnemy::FightJetEnemy(Actor *player, const double x, const double speed) :
-        direction_(0), speed_(speed), playerInstance_(player), time_(0), attackTimeout_(0), attacksCounter_(0)
+        direction_(0), speed_(speed), time_(0), attackTimeout_(0), attacksCounter_(0)
     {
         const auto size = player->Object().Size();
         SetObject(GUI::CreateRectangle(size.width, size.height));
@@ -49,15 +51,21 @@ namespace Game
             }
         }
 
+        Actor *player = Core::ActorSystem::ResolveActorSystem()->FindById(PLAYER_ID);
+        if (!player)
+        {
+            return;
+        }
 
-        if ((time_ >= timeToAttack_ || std::fabs(playerInstance_->Object().GetPos().y - object_.GetPos().y) <= 1E-5) &&
+
+        if ((time_ >= timeToAttack_ || std::fabs(player->Object().GetPos().y - object_.GetPos().y) <= 1E-5) &&
             (attacksCounter_ < maxAttackCount))
         {
             constexpr double speed = -750;
             constexpr double width = 50;
             constexpr double height = 50;
 
-            Actor *missle = new EnemyMissile(playerInstance_, speed, width, height);
+            Actor *missle = new EnemyMissile(player, speed, width, height);
             missle->Object().SetPosition(object_.GetPos().x, object_.GetPos().y - object_.Size().height / 2 + 15);
             time_ = 0;
             attacksCounter_++;

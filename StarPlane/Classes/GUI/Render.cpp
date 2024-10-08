@@ -44,7 +44,7 @@ namespace Game
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-            window_ = glfwCreateWindow(static_cast<int>(width_), static_cast<int>(height_), title_, nullptr, nullptr);
+            window_ = glfwCreateWindow(static_cast<int>(width_), static_cast<int>(height_), title_.c_str(), nullptr, nullptr);
 
             if (window_ == nullptr)
             {
@@ -65,11 +65,12 @@ namespace Game
 
             LoadMatrixProjection();
 
-            glfwSetWindowTitle(window_, title_);
+            glfwSetWindowTitle(window_, title_.c_str());
 
             SetIcon();
 
             glEnable(GL_BLEND);
+            glEnable(GL_MULTISAMPLE);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         }
 
@@ -128,9 +129,13 @@ namespace Game
             for (size_t i = 0; i < nodes_.size(); ++i)
             {
                 auto node = nodes_[i];
-                node->Bind(static_cast<unsigned>(i));
+                if (!node->IsVisible())
+                {
+                    continue;
+                }
 
-                glDrawElements(node->RenderMode(), node->IndexCount(), node->IndexElementType(), nullptr);
+                node->Bind(static_cast<unsigned>(i));
+                node->Draw();
                 node->Unbind();
             }
 
@@ -294,6 +299,31 @@ namespace Game
             nodes_.push_back(node);
         }
 
+		void Render::SetTitle(std::string && title)
+        {
+            title_ = std::move(title);
+            glfwSetWindowTitle(window_, title_.c_str());
+        }
+
+
+        void Render::MoveToBack(Node *node)
+        {
+            if (!node)
+            {
+                return;
+            }
+
+
+            auto it = std::find(nodes_.begin(), nodes_.end(), node);
+            if (it == nodes_.cend() || it == nodes_.cbegin())
+            {
+                return;
+            }
+            nodes_.erase(it);
+            nodes_.push_front(node);
+        }
+
+
         void Render::RemoveNode(Node *node)
         {
             if (!node || nodes_.empty())
@@ -311,6 +341,20 @@ namespace Game
             delete node;
         }
 
+        Node *Render::GetNodeByName(std::string &&name) const noexcept
+        {
+
+            for (auto i = 0UL; i < nodes_.size(); ++i)
+            {
+                if (nodes_[i]->GetName() == name)
+                {
+                    return nodes_[i];
+                }
+            }
+
+            return nullptr;
+        }
+
 
         void Render::InitRender(const unsigned width, const unsigned height, const char *title) noexcept
         {
@@ -323,23 +367,20 @@ namespace Game
         void Render::RemoveUnusedNodes()
         {
 
-            std::vector<Node *> removed{nodes_};
+            std::queue<Node *> removed{};
 
-            for (size_t i = 0; i < removed.size(); ++i)
+            for (size_t i = 0; i < nodes_.size(); ++i)
             {
-                if (removed[i]->IsAvailableForDestroy())
+                if (nodes_[i]->IsAvailableForDestroy())
                 {
-                    nodes_.erase(std::find(nodes_.cbegin(), nodes_.cend(), removed[i]));
+                    removed.push(nodes_[i]);
                 }
             }
 
-
-            for (const auto node : removed)
+            while (!removed.empty())
             {
-                if (node->IsAvailableForDestroy())
-                {
-                    delete node;
-                }
+                RemoveNode(removed.front());
+                removed.pop();
             }
         }
 

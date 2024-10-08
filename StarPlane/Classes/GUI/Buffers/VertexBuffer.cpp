@@ -54,7 +54,7 @@ namespace Game
             size_ = static_cast<int>(size);
         }
 
-        void VertexBuffer::MoveBuffer(const void *data,const size_t size) noexcept
+        void VertexBuffer::MoveBuffer(const void *data, const size_t size) noexcept
         {
 
             if (!data)

@@ -14,10 +14,14 @@
 #include <Game/Missile.h>
 #include <Game/Config.h>
 
+#include <GUI/Render.h>
+#include <GUI/Primitives/Text.h>
+
+
 namespace Game
 {
     Player::Player(const double speed, const double width, const double height) :
-        isMove_(false), speed_(speed), direction_(1)
+        isMove_(false), speed_(speed), direction_(0), score_(0)
     {
         SetObject(GUI::CreateRectangle(width, height));
         object_.SetTexture(TEXTURE_PATH(Plane.png));
@@ -52,7 +56,7 @@ namespace Game
         constexpr double width = 50;
         constexpr double height = 50;
         auto pos = object_.GetPos();
-        Actor *missile = new Missile(speed, width, height, pos.x + object_.Size().width, pos.y - height / 2 - 15);
+        Actor *missile = new Missile(this, speed, width, height, pos.x + object_.Size().width, pos.y - height / 2 - 15);
         missile->Object().Rotate(object_.Angle());
     }
 
@@ -73,6 +77,12 @@ namespace Game
 
             const auto nextPosY2 = direction_ * speed_ * dt + pos.y - object_.Size().height;
 
+			if (nextPosY2 <= -worldSize.height)
+			{
+                Destroy();
+                return;
+			}
+
             const auto check = std::fabs(nextPosY) >= worldSize.height || std::fabs(nextPosY2) >= worldSize.height;
 
             if (check)
@@ -88,8 +98,28 @@ namespace Game
     {
         if (actor->Id() != PLAYER_MISSLE_ID)
         {
-
+            Destroy();
+            actor->Destroy();
         }
+    }
+
+    void Player::UpdateScore()
+    {
+        ++score_;
+
+        auto text = GUI::Render::ResolveRender()->GetNodeByNameAs<GUI::Text>("ScoreLabel");
+
+        if (text == nullptr)
+        {
+            return;
+        }
+
+        auto label = "Score:" + std::to_string(score_);
+        text->SetString(std::move(label));
+
+		// Only for test
+        auto test = "Score:" + std::to_string(score_);
+        GUI::Render::ResolveRender()->SetTitle(std::move(test));
     }
 
 

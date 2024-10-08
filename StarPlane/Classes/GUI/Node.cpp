@@ -60,6 +60,12 @@ namespace Game
             indexBuffer_->Bind();
         }
 
+        void Node::Draw() noexcept
+        {
+            glDrawElements(RenderMode(), IndexCount(), IndexElementType(), nullptr);
+        }
+
+
         void Node::Unbind() noexcept
         {
             texture_->Unbind();
@@ -123,6 +129,20 @@ namespace Game
 #endif
             }
         }
+
+        void Node::FillColor(const char *hexColor) noexcept
+        {
+            if (hexColor == nullptr)
+            {
+                return;
+            }
+
+            std::string shex{hexColor};
+            FillColor(static_cast<float>(std::stoi(shex.substr(1, 2), nullptr, 16)) / 255.0f,
+                      static_cast<float>(std::stoi(shex.substr(3, 2), nullptr, 16)) / 255.0f,
+                      static_cast<float>(std::stoi(shex.substr(5, 2), nullptr, 16)) / 255.0f, 1.0);
+        }
+
 
         void Node::SetColorFor(const void *color)
         {
@@ -229,6 +249,26 @@ namespace Game
         void Node::Destroy() noexcept
         {
             availableForDestroy_ = true;
+        }
+
+        void Node::SetName(std::string &&name) noexcept
+        {
+            name_ = std::move(name);
+        }
+
+        const std::string &Node::GetName() const noexcept
+        {
+            return name_;
+        }
+
+        bool Node::IsVisible() const noexcept
+        {
+            return isVisible_;
+        }
+
+        void Node::SetVisible(const bool value) noexcept
+        {
+            isVisible_ = value;
         }
 
         Position2D Node::GetPos() const noexcept

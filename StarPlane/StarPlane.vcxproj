@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -79,11 +80,11 @@
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include;$(SolutionDir)/ThirdParty/Include/free_type</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)/Classes;$(SolutionDir)/ThirdParty/Include;$(SolutionDir)/ThirdParty/Include/free_type</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -155,6 +156,7 @@
     <ClCompile Include="Classes\Core\Controller\Mouse\MouseProcessor.cpp" />
     <ClCompile Include="Classes\Core\Controller\Utils\Utils.cpp" />
     <ClCompile Include="Classes\Game\AppDelegate.cpp" />
+    <ClCompile Include="Classes\Game\Enemies\Asteroid.cpp" />
     <ClCompile Include="Classes\Game\Enemies\BirdEnemy.cpp" />
     <ClCompile Include="Classes\Game\Enemies\EnemyMissile.cpp" />
     <ClCompile Include="Classes\Game\Enemies\FightJetEnemy.cpp" />
@@ -163,14 +165,18 @@
     <ClCompile Include="Classes\Game\Missile.cpp" />
     <ClCompile Include="Classes\Game\Player.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Classes\GUI\Buffers\TextColorBuffer.cpp" />
+    <ClCompile Include="Classes\GUI\Buffers\TextVAOVBOBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Classes\GUI\Node.cpp" />
     <ClCompile Include="Classes\GUI\Primitives\Rectangle.cpp" />
+    <ClCompile Include="Classes\GUI\Primitives\Text.cpp" />
     <ClCompile Include="Classes\GUI\Render.cpp" />
     <ClCompile Include="Classes\GUI\Shader.cpp" />
     <ClCompile Include="Classes\GUI\ShaderProgram.cpp" />
     <ClCompile Include="Classes\GUI\Support.cpp" />
     <ClCompile Include="Classes\GUI\Texture.cpp" />
+    <ClCompile Include="Classes\GUI\Textures\TextTexture.cpp" />
     <ClCompile Include="Classes\Utils\Cache.cpp" />
     <ClCompile Include="Classes\Utils\Timer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -192,6 +198,7 @@
     <ClInclude Include="Classes\Core\Controller\Utils\Utils.h" />
     <ClInclude Include="Classes\Game\AppDelegate.h" />
     <ClInclude Include="Classes\Game\Config.h" />
+    <ClInclude Include="Classes\Game\Enemies\Asteroid.h" />
     <ClInclude Include="Classes\Game\Enemies\BirdEnemy.h" />
     <ClInclude Include="Classes\Game\Enemies\EnemyMissile.h" />
     <ClInclude Include="Classes\Game\Enemies\FightJetEnemy.h" />
@@ -202,14 +209,18 @@
     <ClInclude Include="Classes\Game\Player.h" />
     <ClInclude Include="Classes\GUI\Buffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Classes\GUI\Buffers\TextColorBuffer.h" />
+    <ClInclude Include="Classes\GUI\Buffers\TextVAOVBOBuffer.h" />
     <ClInclude Include="Classes\GUI\Buffers\VertexBuffer.h" />
     <ClInclude Include="Classes\GUI\Node.h" />
     <ClInclude Include="Classes\GUI\Primitives\Rectangle.h" />
+    <ClInclude Include="Classes\GUI\Primitives\Text.h" />
     <ClInclude Include="Classes\GUI\Render.h" />
     <ClInclude Include="Classes\GUI\Shader.h" />
     <ClInclude Include="Classes\GUI\ShaderProgram.h" />
     <ClInclude Include="Classes\GUI\Support.h" />
     <ClInclude Include="Classes\GUI\Texture.h" />
+    <ClInclude Include="Classes\GUI\Textures\TextTexture.h" />
     <ClInclude Include="Classes\Utils\Cache.h" />
     <ClInclude Include="Classes\Utils\Config.h" />
     <ClInclude Include="Classes\Utils\Optional.h" />
@@ -233,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\APP_ICON.ico" />
+    <Image Include="Resources\Textures\Enemies\Asteroid.png" />
     <Image Include="Resources\Textures\Enemies\Bird.png" />
     <Image Include="Resources\Textures\Enemies\FighterJet.png" />
     <Image Include="Resources\Textures\Enemies\Missle.png" />
@@ -243,8 +255,10 @@
     <Image Include="Resources\Textures\Missles\Missle4.png" />
     <Image Include="Resources\Textures\Missles\Missle5.png" />
     <Image Include="Resources\Textures\Plane.png" />
+    <Image Include="Resources\Textures\SpaceBG.png" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="ThirdParty\Lib\x64\freetype.lib" />
     <Library Include="ThirdParty\Lib\x64\gl3w.lib" />
     <Library Include="ThirdParty\Lib\x64\glad.lib" />
     <Library Include="ThirdParty\Lib\x64\glbinding-aux.lib" />
@@ -256,10 +270,28 @@
     <Library Include="ThirdParty\Lib\x64\OpenGL32.Lib" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Shaders\BasicFrag.frag" />
     <None Include="Resources\Shaders\BasicVertex.vert" />
+    <CopyFileToFolders Include="ThirdParty\Lib\x64\freetype.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="Resources\Shaders\TextFragment.frag" />
+    <None Include="Resources\Shaders\TextVertex.vert" />
+    <None Include="ThirdParty\Lib\x64\freetype.dll.recipe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Silver.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+  </Target>
 </Project>

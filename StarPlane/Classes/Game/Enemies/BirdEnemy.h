@@ -8,11 +8,12 @@ namespace Game
     class BirdEnemy : A_ACTOR
     {
     public:
-        BirdEnemy(Actor*,double, double, double, double, double);
+        BirdEnemy(double, double, double, double, double);
 
-		void Update(double) override;
+        void Update(double) override;
+        void OnEnter(Actor *) override;
+
     private:
-        Actor *playerInstance_;
         double speed_;
         double time_;
 

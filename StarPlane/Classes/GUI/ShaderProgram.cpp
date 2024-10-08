@@ -57,7 +57,7 @@ namespace Game
             if (vertexShader_->Error() || fragmentShader_->Error())
             {
                 APP_LOG(vertexShader_->Error());
-                APP_LOG(vertexShader_->Error());
+                APP_LOG(fragmentShader_->Error());
 #if !defined(NDEBUG)
 #if defined(_WIN32)
                 __debugbreak();

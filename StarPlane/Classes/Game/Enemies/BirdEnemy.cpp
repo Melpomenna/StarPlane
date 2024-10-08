@@ -14,9 +14,8 @@
 
 namespace Game
 {
-    BirdEnemy::BirdEnemy(Actor *instance, const double width, const double height, const double x, const double y,
+    BirdEnemy::BirdEnemy(const double width, const double height, const double x, const double y,
                          const double speed) :
-        playerInstance_(instance),
         speed_(speed), time_(0)
     {
         SetObject(GUI::CreateRectangle(width, height));
@@ -35,6 +34,15 @@ namespace Game
         if (posX + object_.Size().width <= -object_.WorldSize().width)
         {
             Destroy();
+        }
+    }
+
+    void BirdEnemy::OnEnter(Actor *actor)
+    {
+        if (actor->Id() == PLAYER_MISSLE_ID)
+        {
+            Destroy();
+            actor->Destroy();
         }
     }
 

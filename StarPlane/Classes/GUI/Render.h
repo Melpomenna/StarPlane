@@ -7,7 +7,7 @@
 #include <GLFW/glfw3.h>
 
 #include <Utils/Optional.h>
-#include <vector>
+#include <deque>
 
 namespace Game
 {
@@ -36,6 +36,19 @@ namespace Game
 
             void AddNode(Node *);
             void RemoveNode(Node *);
+            void MoveToBack(Node *);
+
+			void SetTitle(std::string&&);
+
+            Node *GetNodeByName(std::string &&) const noexcept;
+
+            template <class T>
+            T *GetNodeByNameAs(std::string &&name) const noexcept
+            {
+                static_assert(std::is_base_of_v<Node, T>);
+
+                return static_cast<T *>(GetNodeByName(std::move(name)));
+            }
 
             static Render *ResolveRender() noexcept;
 
@@ -73,10 +86,10 @@ namespace Game
 
         private:
             unsigned width_, height_;
-            const char *title_;
+            std::string title_;
             GLFWwindow *window_;
             Optional<std::exception_ptr> exception_;
-            std::vector<Node *> nodes_;
+            std::deque<Node *> nodes_;
         };
     } // namespace GUI
 

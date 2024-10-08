@@ -20,7 +20,6 @@ namespace Game
         static constexpr unsigned maxAttackCount = 5;
         double direction_;
         double speed_;
-        Actor *playerInstance_;
         double time_, attackTimeout_;
         unsigned attacksCounter_;
 

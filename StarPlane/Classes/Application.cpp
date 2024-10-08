@@ -45,6 +45,7 @@ namespace Game
             APP_LOG(("Resize window: (w,h)" + std::to_string(width) + "," + std::to_string(height) + "\n").c_str());
 #endif
             GUI::Render::ResolveRender()->OnResize(width, height);
+            Core::ActorSystem::ResolveActorSystem()->OnResize(width, height);
         }
 
         void OnCursorMove(GLFWwindow *, const double x, const double y)
@@ -92,23 +93,29 @@ namespace Game
             {
                 timer_->Mark();
                 render->Draw();
+                // No unused, because keyboardProcess and MouseProcessor in Update method do nothing
                 eventController->Update(dt);
                 actorSystem->Update(dt);
-                dt = timer_->Peek();
-                //actorSystem->CollisionDetection();
+                actorSystem->CollisionDetection();
                 actorSystem->RemoveDestroyedActors();
                 render->RemoveUnusedNodes();
+                dt = timer_->Peek();
+#if defined(ENABLE_LOG)
+                std::string deltaTimeMessage = "Delta Time:" + std::to_string(dt) + "\n";
+                APP_LOG(deltaTimeMessage.c_str());
+#endif
+
             }
             if (render->HasException())
             {
                 render->Terminate();
             }
+
         }
         catch (...)
         {
             statusCode = -1;
         }
-
         return statusCode;
     }
 

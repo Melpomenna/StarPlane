@@ -1,5 +1,10 @@
 #pragma once
 
+#ifndef RESERVE_ACTORS_SIZE
+#define RESERVE_ACTORS_SIZE 100
+#endif
+
+
 #include <vector>
 
 namespace Game
@@ -14,7 +19,7 @@ namespace Game
         public:
             friend class Application;
 
-            ActorSystem() = default;
+            ActorSystem();
             ~ActorSystem();
 
             static ActorSystem *ResolveActorSystem();
@@ -24,8 +29,11 @@ namespace Game
             void RemoveActor(Actor *);
             void RegisterActor(Actor *);
 
-			void RemoveDestroyedActors() noexcept;
+            void RemoveDestroyedActors() noexcept;
             void CollisionDetection() noexcept;
+            void OnResize(size_t, size_t) noexcept;
+
+			Actor *FindById(unsigned) const noexcept;
 
         private:
             static void Destroy();

@@ -20,8 +20,7 @@ namespace Game
 {
     namespace GUI
     {
-        Texture::Texture(const unsigned shaderProgramId, unsigned renderType) :
-            filePath_(nullptr), fileLen_(), buffer_(nullptr), width_(), height_(), id_(0),
+        Texture::Texture(const unsigned shaderProgramId, const unsigned renderType) :
             shaderProgramId_(shaderProgramId)
         {
             auto textureCoordinateLocation = glGetUniformLocation(shaderProgramId_, "ti_color");
@@ -54,13 +53,17 @@ namespace Game
             }
 
             glBindTexture(GL_TEXTURE_2D, id_);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width_, height_, 0,
                          GL_RGBA, GL_UNSIGNED_BYTE, buffer_);
+
+            glGenerateMipmap(GL_TEXTURE_2D);
+
             glBindTexture(GL_TEXTURE_2D, 0);
         }
 

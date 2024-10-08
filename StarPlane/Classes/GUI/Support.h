@@ -1,6 +1,6 @@
 #pragma once
 
-#include <type_traits>
+#include <string>
 
 namespace Game
 {
@@ -8,7 +8,6 @@ namespace Game
     {
 
         class Node;
-        class Rectangle;
 
         const char *ReadFile(const char *);
 
@@ -16,5 +15,8 @@ namespace Game
 
 
         Node *CreateRectangle(double width, double height);
+
+        Node *CreateText(std::string &&fontName, std::string &&text, unsigned int fontSize);
+
     }
 }
